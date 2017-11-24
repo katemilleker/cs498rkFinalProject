@@ -1,0 +1,3 @@
+rootProject.name = 'resume_recruiter'
+
+include ':app'
