@@ -1,0 +1,1 @@
+This folder contains any generic component not limited to one screen
