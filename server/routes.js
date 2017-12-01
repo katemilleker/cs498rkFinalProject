@@ -23,10 +23,8 @@ module.exports = (app, passport) => {
 
   // authentication routes
   AuthController(router, passport);
-  //router.get("/login", LoginController.login);
-  //router.post("/login", Login)
 
-  //testing authenticate
+  //testing authenticate, will probably be removed later
   router.get('/profile',
         isLoggedIn,
         function(req, res) {

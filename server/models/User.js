@@ -1,12 +1,16 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-var UserSchema = new mongoose.Schema({
+Schema = mongoose.Schema;
+
+
+var UserSchema = new Schema({
     name: {type: String, required : true},
     email: {type: String, unique: true, required : true, dropDups: true},
     password: {type: String, required: true},
     major: {type: String},
     details: {type: String},
+    resume: {type: Schema.Types.ObjectId}
 });
 
 

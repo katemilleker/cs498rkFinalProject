@@ -1,10 +1,16 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
-var RecruiterSchema = new mongoose.Schema({
+Schema = mongoose.Schema;
+
+
+var RecruiterSchema = new Schema({
     name: {type: String, required : true},
     email: {type: String, unique: true, required : true, dropDups: true},
     password: {type: String, required: true},
+    savedResumes: [Schema.Types.ObjectId],
+    acceptedResumes: [Schema.Types.ObjectId],
+    rejectedResumes: [Schema.Types.ObjectId]
 });
 
 
