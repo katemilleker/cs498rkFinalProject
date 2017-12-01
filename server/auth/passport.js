@@ -18,9 +18,6 @@ module.exports = function(passport) {
         });
     });
 
-
-
-
     // Registration Strategy for recruiter
     passport.use('local-recruiter-signup', new LocalStrategy({
         usernameField : 'email',

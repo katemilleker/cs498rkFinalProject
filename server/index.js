@@ -4,10 +4,15 @@ const bodyParser = require("body-parser");
 
 
 
+
 const mongoose = require("mongoose");
 const secrets = require("../secrets.js")
 
 const passport = require('passport')
+const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
+
+
 
 require('./auth/passport')(passport);
 
@@ -33,7 +38,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-//app.use(express.cookieParser());
+// Initialize cookie sessions
+app.use(cookieParser());
+app.use(cookieSession({
+  keys: ['asdf', 'asdf']
+}));
 // Initialize Passport
 app.use(passport.initialize()); // Create an instance of Passport
 app.use(passport.session());
