@@ -6,6 +6,7 @@ import { StackNavigator } from "react-navigation";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RecruiterHomeScreen from "../screens/RecruiterHomeScreen/RecruiterHomeScreen";
 import JobSeekerHomeScreen from "../screens/JobSeekerHomeScreen/JobSeekerHomeScreen";
+import SignUpScreen from "../screens/SignUpScreen/SignUpScreen";
 
 
 export const Root = StackNavigator({
@@ -25,6 +26,12 @@ export const Root = StackNavigator({
     screen: JobSeekerHomeScreen,
     navigationOptions: {
       title: "Job Seeker Home"
+    }
+  },
+  SignUp: {
+    screen: SignUpScreen,
+    navigationOptions: {
+      title: "Sign Up"
     }
   }
 });

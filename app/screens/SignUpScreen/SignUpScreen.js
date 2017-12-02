@@ -2,17 +2,17 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default class LoginScreen extends Component {
+export default class SignUpScreen extends Component {
   goToJobSeekerHomeScreen = () => {
     this.props.navigation.navigate("JobSeekerHome", this.state);
   };
 
-  goToRecruiterHomeScreen = () => {
-    this.props.navigation.navigate("RecruiterHome", this.state);
+  goToLoginScreen = () => {
+    this.props.navigation.navigate("Login", this.state);
   };
 
-  goToSignUpScreen = () => {
-    this.props.navigation.navigate("SignUp", this.state);
+  goToRecruiterHomeScreen = () => {
+    this.props.navigation.navigate("RecruiterHome", this.state);
   };
 
   render() {
@@ -21,13 +21,13 @@ export default class LoginScreen extends Component {
         <Text
           style={[styles.textItem]}
         >
-          This is the login screen
+          This is the sign up screen
         </Text>
         <Text
-          onPress={() => this.goToSignUpScreen()}
+          onPress={() => this.goToLoginScreen()}
           style={[styles.textItem, styles.link]}
         >
-          Go to the sign up screen
+          Go to the login screen
         </Text>
         <Text
           onPress={() => this.goToRecruiterHomeScreen()}
