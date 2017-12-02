@@ -3,8 +3,12 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default class LoginScreen extends Component {
+  goToJobSeekerHomeScreen = () => {
+    this.props.navigation.navigate("JobSeekerHome", this.state);
+  };
+
   goToRecruiterHomeScreen = () => {
-    this.props.navigation.navigate("RecruiterHome", this.state)
+    this.props.navigation.navigate("RecruiterHome", this.state);
   };
 
   render() {
@@ -20,6 +24,12 @@ export default class LoginScreen extends Component {
           style={[styles.textItem, styles.link]}
         >
           Go to the recruiter home screen
+        </Text>
+        <Text
+          onPress={() => this.goToJobSeekerHomeScreen()}
+          style={[styles.textItem, styles.link]}
+        >
+          Go to the job seeker home screen
         </Text>
       </View>
     );
