@@ -1,15 +1,11 @@
 
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { Root } from "./config/router.js";
 
 export default class App extends Component {
   render() {
     return (
-      <View>
-        <Text>
-          Hello world for the HypeRecruiter app
-        </Text>
-      </View>
+      <Root />
     );
   }
 }
