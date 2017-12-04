@@ -1,5 +1,6 @@
 
 const AuthController = require("./controllers/AuthController");
+const ProfileController = require("./controllers/ProfileController");
 var express = require('express')
 
 
@@ -13,28 +14,23 @@ function isLoggedIn(req, res, next) {
 
 module.exports = (app, passport) => {
 
-  // remove before production
-  app.get("/test", (req, res) => {
-    res.send("The server is working");
-  });
-
-  var router = express.Router()
-
-
-  // authentication routes
-  AuthController(router, passport);
-
-  //testing authenticate, will probably be removed later
-  router.get('/profile',
-        isLoggedIn,
-        function(req, res) {
-            console.log(req.isAuthenticated());
-            res.status(200).json({ user: req.user, message: "Welcome!"
-        });
+    // remove before production
+    app.get("/test", (req, res) => {
+        res.send("The server is working");
     });
 
+    var router = express.Router()
 
-  app.use(router);
+    // routes to get profile data
+    ProfileController(router, isLoggedIn);
+
+
+    // authentication routes
+    AuthController(router, passport);
+
+
+
+    app.use(router);
 
 
 };

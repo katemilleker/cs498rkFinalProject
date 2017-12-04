@@ -8,13 +8,11 @@ mongoose.Promise = global.Promise;
 
 
 module.exports = (router, passport) => {
-    router.get("/login", (req, res) => {
-        res.send("Place holder, not sure if it is needed");
-    });
 
     router.post("/login",
         passport.authenticate('local-login'),
         (req, res) => {
+            console.log("attempted log in")
             console.log(req.isAuthenticated());
             res.status(200).json({ user: req.user.email});
         }
@@ -31,6 +29,32 @@ module.exports = (router, passport) => {
         req.logOut();
         res.status(200).json({ message: "logged out "});
     });
+
+
+
+
+    router.post("/loginrec",
+        passport.authenticate('local-recruiter-login'),
+        (req, res) => {
+            console.log("attempted log in")
+            console.log(req.isAuthenticated());
+            res.status(200).json({ user: req.user.email});
+        }
+    );
+
+    router.post("/registerrec",
+        passport.authenticate('local-recruiter-signup'),
+        (req, res) => {
+            res.status(200).json({ user: req.user.email})
+        }
+    );
+
+    router.get('/logoutRec', function(req, res) {
+        req.logOut();
+        res.status(200).json({ message: "logged out "});
+    });
+
+
 
 
     return router;

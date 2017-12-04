@@ -4,19 +4,41 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/User');
 var Recruiter = require('../models/Recruiter');
 
+function isRecruiter(user){
+    if ("savedResumes" in user) {
+        return true;
+    }
+    return false;
+}
 
 
 
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        var dict = {id: user.id}
+        if (isRecruiter(user)){
+            dict.type = "recruiter";
+        }else{
+            dict.type = "user";
+        }
+        done(null, dict);
     });
 
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
+    passport.deserializeUser(function(dict, done) {
+        var id = dict.id;
+        var type = dict.type;
+
+        if (type == "recruiter"){
+            Recruiter.findById(id, function(err, user) {
+                done(err, user);
+            });
+        }else{
+            User.findById(id, function(err, user) {
+                done(err, user);
+            });
+        }
     });
+
 
     // Registration Strategy for recruiter
     passport.use('local-recruiter-signup', new LocalStrategy({
