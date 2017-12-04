@@ -32,7 +32,6 @@ module.exports = (router, passport) => {
 
 
 
-
     router.post("/loginrec",
         passport.authenticate('local-recruiter-login'),
         (req, res) => {
@@ -49,10 +48,7 @@ module.exports = (router, passport) => {
         }
     );
 
-    router.get('/logoutRec', function(req, res) {
-        req.logOut();
-        res.status(200).json({ message: "logged out "});
-    });
+
 
 
 
