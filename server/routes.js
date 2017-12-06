@@ -16,7 +16,9 @@ module.exports = (app, passport) => {
 
     // remove before production
     app.get("/test", (req, res) => {
-        res.send("The server is working");
+        res.status(200).json({
+            message: "testing!"
+        });
     });
 
     var router = express.Router()
