@@ -13,6 +13,7 @@ Auth paths
     GET: /logout
 
 
-Profile paths (these may have to be modified in the future to add functionality)
+Profile paths - paths specifically for jobseeker
 
-    GET: /profile - gets all data for a given user (whether it is a recruiter or a jobseeker)
+    GET: /profile - gets all data for a given user ()
+    PUT: /profile - edit the user data, with data in query fields

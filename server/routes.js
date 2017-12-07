@@ -1,6 +1,7 @@
 
 const AuthController = require("./controllers/AuthController");
 const ProfileController = require("./controllers/ProfileController");
+
 var express = require('express')
 
 
@@ -23,7 +24,7 @@ module.exports = (app, passport) => {
 
     var router = express.Router()
 
-    // routes to get profile data
+    // routes to get profile data --> ONLY FOR JOBSEEKER
     ProfileController(router, isLoggedIn);
 
 

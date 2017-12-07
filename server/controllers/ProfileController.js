@@ -7,8 +7,14 @@ var Recruiter = require('../models/Recruiter.js'); // instance of mongoose.model
 
 mongoose.Promise = global.Promise;
 
+function filterUser(doc){
+    doc["password"] = undefined;
+}
+
+
 
 module.exports = (router, isLoggedIn) => {
+
     router.get('/profile',
         isLoggedIn,
         function(req, res) {
@@ -18,7 +24,32 @@ module.exports = (router, isLoggedIn) => {
                 message: "Welcome!"
             });
         });
+    router.put('/profile',
+        isLoggedIn,
+        function(req, res) {
+            User.findOne({"_id":req.user["_id"]}, (err, doc) => {
+                var data = req.body;
+                for(var field in doc){
+                    doc[field] = data[field] || doc[field];
+                }
 
+                doc.save((err, d) => {
+                     if(err){
+                         console.log(err);
+                         res.status(500).json({
+                             message: "fucked up!"
+                         });
+                     }else{
+                         filterUser(doc);
+                         res.status(200).json({
+                             user: doc,
+                             message: "User modified"
+                         });
+                     }
+                 })
+            });
+
+        });
 
     return router;
 };
