@@ -37,16 +37,19 @@ export default class JobSeekerHomeScreen extends Component {
         />
 
         <Text>
-          Description
+          Description/Recent Experience
         </Text>
         <TextInput
+          multiline = {true}
           editable = {true}
-          maxLength = {40}
           onChangeText = {(text) => this.setState({descInput : text})}
         />
 
         <Button
-          onPress={ () => {this.switchMode()} }
+          onPress={ () => {
+            // send post request here!!
+            this.switchMode()
+          } }
           title="Save"
         />
       </View>
@@ -62,26 +65,33 @@ export default class JobSeekerHomeScreen extends Component {
       axios.get('http://10.0.2.2:3000/profile/')
         .then((res) => {
           this.setState({
-            userData: res.data,
-            descInput: res.data.details,
-            majorInput: res.data.major
+            userData: res.data.user,
+            descInput: res.data.user.details,
+            majorInput: res.data.user.major
           });
         })
-        .catch(function (err) {
+        .catch((err) => {
           console.log(err);
+          // return to login screen here on failure, but this is a test
+          // return axios.post('http://10.0.2.2:3000/login/', {
+          //     email: 'joeb',
+          //     password: 'password'
+          //   });
         });
     }
-
+    console.log(this.state.userData);
     return(
       <View>
         <Text>
           {
             this.state.userData ?
               <Text>
-                Major: {this.state.userData.major}
-
-                Description/Recent Experience:
-                {this.state.userData.details}
+                Major:{"\n"}
+                {this.state.userData.major ? this.state.userData.major : "Not specified"}
+                {"\n"}
+                Description/Recent Experience:{"\n"}
+                {this.state.userData.details ? this.state.userData.details : "Not written"}
+                {"\n"}
               </Text>
             :
               <Text> Loading </Text>
