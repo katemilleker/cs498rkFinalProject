@@ -30,7 +30,9 @@ module.exports = (router, isLoggedIn) => {
             User.findOne({"_id":req.user["_id"]}, (err, doc) => {
                 var data = req.body;
                 for(var field in doc){
-                    doc[field] = data[field] || doc[field];
+                    if (field != "password" && field != "_id"){
+                        doc[field] = data[field] || doc[field];
+                    }
                 }
 
                 doc.save((err, d) => {

@@ -4,6 +4,9 @@ import { StyleSheet, Text, View, Button , TextInput} from "react-native";
 import axios from 'axios';
 
 export default class JobSeekerHomeScreen extends Component {
+
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,11 +18,18 @@ export default class JobSeekerHomeScreen extends Component {
   }
 
 
+
+
+
   switchMode() {
     this.setState({
       editMode: !this.state.editMode
     });
   }
+
+
+
+
 
 
   renderEditMode() {
@@ -33,6 +43,7 @@ export default class JobSeekerHomeScreen extends Component {
         <TextInput
           editable = {true}
           maxLength = {40}
+          defaultValue = {this.state.majorInput}
           onChangeText = {(text) => this.setState({majorInput: text})}
         />
 
@@ -42,44 +53,49 @@ export default class JobSeekerHomeScreen extends Component {
         <TextInput
           multiline = {true}
           editable = {true}
+          defaultValue = {this.state.descInput}
           onChangeText = {(text) => this.setState({descInput : text})}
         />
 
         <Button
           onPress={ () => {
-            // send post request here!!
-            this.switchMode()
+            axios.put("http://10.0.2.2:3000/profile/", {
+              details: this.state.descInput,
+              major: this.state.majorInput
+            }).then((res) => {
+              this.switchMode()
+            });
           } }
           title="Save"
         />
       </View>
     )
-
   }
+
+
+
+
 
 
 
   renderViewMode(){
     var profile;
-    if(!this.state.userData){
-      axios.get('http://10.0.2.2:3000/profile/')
-        .then((res) => {
-          this.setState({
-            userData: res.data.user,
-            descInput: res.data.user.details,
-            majorInput: res.data.user.major
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          // return to login screen here on failure, but this is a test
-          // return axios.post('http://10.0.2.2:3000/login/', {
-          //     email: 'joeb',
-          //     password: 'password'
-          //   });
+    axios.get('http://10.0.2.2:3000/profile/')
+      .then((res) => {
+        this.setState({
+          userData: res.data.user,
+          descInput: res.data.user.details,
+          majorInput: res.data.user.major
         });
-    }
-    console.log(this.state.userData);
+      })
+      .catch((err) => {
+        console.log(err);
+        // return to login screen here on failure, but this is a test
+        // return axios.post('http://10.0.2.2:3000/login/', {
+        //     email: 'joeb',
+        //     password: 'password'
+        //   });
+      });
     return(
       <View>
         <Text>
@@ -106,6 +122,11 @@ export default class JobSeekerHomeScreen extends Component {
   }
 
 
+
+
+
+
+
   render() {
     var body;
 
@@ -121,11 +142,24 @@ export default class JobSeekerHomeScreen extends Component {
           {this.state.userData ? this.state.userData.name : ""}
         </Text>
         { body }
+        <Button
+          onPress={ () => {
+            axios.get("http://10.0.2.2:3000/logout/", {})
+              .then((res) => {
+                this.props.navigation.goBack(null);
+              });
+          } }
+          title="Log out"
+        />
       </View>
     )
 
   }
 }
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
