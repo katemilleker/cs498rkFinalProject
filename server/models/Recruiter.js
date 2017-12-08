@@ -8,9 +8,7 @@ var RecruiterSchema = new Schema({
     name: {type: String, required : true},
     email: {type: String, unique: true, required : true, dropDups: true},
     password: {type: String, required: true},
-    savedResumes: [Schema.Types.ObjectId],
-    acceptedResumes: [Schema.Types.ObjectId],
-    rejectedResumes: [Schema.Types.ObjectId]
+    resumes: [{res_id: Schema.Types.ObjectId, status: String}]
 });
 
 

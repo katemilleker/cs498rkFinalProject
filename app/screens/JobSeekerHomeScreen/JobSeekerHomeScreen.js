@@ -1,7 +1,11 @@
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button , TextInput} from "react-native";
+import { StyleSheet, Text, View, Button , TextInput, WebView} from "react-native";
 import axios from 'axios';
+
+
+import QRCode from 'react-native-qrcode';
+
 
 export default class JobSeekerHomeScreen extends Component {
 
@@ -91,32 +95,35 @@ export default class JobSeekerHomeScreen extends Component {
       .catch((err) => {
         console.log(err);
         // return to login screen here on failure, but this is a test
-        // return axios.post('http://10.0.2.2:3000/login/', {
-        //     email: 'joeb',
-        //     password: 'password'
-        //   });
+        return axios.post('http://10.0.2.2:3000/login/', {
+            email: 'joeb',
+            password: 'password'
+          });
       });
     return(
       <View>
-        <Text>
           {
             this.state.userData ?
-              <Text>
-                Major:{"\n"}
-                {this.state.userData.major ? this.state.userData.major : "Not specified"}
-                {"\n"}
-                Description/Recent Experience:{"\n"}
-                {this.state.userData.details ? this.state.userData.details : "Not written"}
-                {"\n"}
-              </Text>
+             <View>
+                <Text>
+                  Major:{"\n"}
+                  {this.state.userData.major ? this.state.userData.major : "Not specified"}
+                  {"\n"}
+                  Description/Recent Experience:{"\n"}
+                  {this.state.userData.details ? this.state.userData.details : "Not written"}
+                  {"\n"}
+                </Text>
+
+              </View>
+
             :
               <Text> Loading </Text>
           }
-        </Text>
         <Button
           onPress={ () => {this.switchMode()} }
           title="Edit"
         />
+
       </View>
     )
   }
@@ -141,6 +148,15 @@ export default class JobSeekerHomeScreen extends Component {
         <Text>
           {this.state.userData ? this.state.userData.name : ""}
         </Text>
+
+        {this.state.userData ?
+
+          <QRCode
+            value={this.state.userData._id}
+            size={250}
+            bgColor='black'
+            fgColor='white'/>: <Text></Text>
+        }
         { body }
         <Button
           onPress={ () => {
@@ -152,12 +168,11 @@ export default class JobSeekerHomeScreen extends Component {
           title="Log out"
         />
       </View>
+
     )
 
   }
 }
-
-
 
 
 
