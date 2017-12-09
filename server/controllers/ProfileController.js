@@ -50,7 +50,6 @@ module.exports = (router, isLoggedIn) => {
                      }
                  })
             });
-
         });
 
     return router;

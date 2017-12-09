@@ -28,8 +28,10 @@ export default class JobSeekerHomeScreen extends Component {
       majorInput: "",
       descInput: "",
       userData: null,
+      resumeUri: null,
+      resumeName: null
     };
-    this.resumeUri = null;
+
   }
 
 
@@ -71,22 +73,35 @@ export default class JobSeekerHomeScreen extends Component {
           defaultValue = {this.state.descInput}
           onChangeText = {(text) => this.setState({descInput : text})}
         />
+        {this.state.resumeUri ?
+          <View>
+            <Text>
+              Attached {this.state.resumeName}
+            </Text>
+            <Button
+              title="Remove Attached"
+              onPress={ () => {
+                  this.setState({
+                    resumeUri: null,
+                    resumeName: null
+                  });
+                }
+              }
+            />
+          </View>
+          : <Text></Text>
+        }
+
         <Button
           title="edit Resume"
           onPress={ () => {
               DocumentPicker.show({
                 filetype: [DocumentPickerUtil.pdf()],
               },(error,res) => {
-                console.log(res);
-                console.log(
-                   res.uri,
-                   res.type,
-                   res.fileName,
-                   res.fileSize
-                );
-                this.resumeUri = res.uri;
-
-
+                this.setState({
+                  resumeName: res.fileName,
+                  resumeUri: res.uri
+                })
               });
 
             }
@@ -100,13 +115,12 @@ export default class JobSeekerHomeScreen extends Component {
               details: this.state.descInput,
               major: this.state.majorInput
             }).then((res) => {
-              if(this.resumeUri){
-
+              if(this.state.resumeUri){
                 var fileData = new FormData();
                 fileData.append('res', {
-                  uri: this.resumeUri,
+                  uri: this.state.resumeUri,
                   type: 'application/pdf',
-                  name: 'resumeName'
+                  name: this.state.resumeName
                 });
                 axios.post("http://10.0.2.2:3000/upload/", fileData)
                   .then(() => {
@@ -118,6 +132,11 @@ export default class JobSeekerHomeScreen extends Component {
 
               }else{
                 this.switchMode();
+                this.setState({
+                  resumeUri: null,
+                  resumeName: null
+                })
+
               }
             });
           } }

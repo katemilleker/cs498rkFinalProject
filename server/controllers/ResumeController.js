@@ -2,7 +2,7 @@ var secrets = require('../../secrets.js');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var util = require('util');
+//var util = require('util');
 
 var fs = require('fs');
 var Gridfs = require('gridfs-stream');
@@ -20,45 +20,46 @@ function filterUser(doc){
 
 
 
-module.exports = (router, isLoggedIn) => {
+module.exports = (router, isLoggedIn, getType) => {
 
     // https://medium.com/@patrickshaughnessy/front-to-back-file-uploads-using-gridfs-9ddc3fc43b5d
     router.post('/upload/',
         isLoggedIn,
         function(req, res) {
             var form = new multiparty.Form();
-            form.parse(req, function(err, fields, files) {
+            // parse the file, and then send it to mongodb
+            form.parse(req, (err, fields, files) => {
+                var db = mongoose.connection.db;
+                var mongoDriver = mongoose.mongo;
+                var gfs = new Gridfs(db, mongoDriver);
+                var path = files.res[0].path;
 
-                console.log(util.inspect({fields: fields, files: files}));
+                var writestream = gfs.createWriteStream({
+                  filename: req.user["_id"] + ".pdf",
+                  mode: 'w'
+                });
 
-                res.send("done");
-            });
+                fs.createReadStream(path).pipe(writestream);
+                writestream.on('close', (file) => {
+                    User.findById(req.user["_id"], (err, user) => {
+                      // handle error
+                      user.resume = file._id;
+                      user.save((err, updatedUser) => {
+                        fs.unlink(path, function(err) {
+                          console.log('success!');
+                        });
+                        res.status(201).json({
+                            message: "Resume added"
+                        });
+                      });
+
+                    });
+
+                });
+
+
+            })
 
         });
-
-    // var writestream = gfs.createWriteStream({
-    //      filename: req.files.file.name,
-    //      mode: 'w',
-    //      content_type: req.files.file.mimetype,
-    //      metadata: req.body
-    // })
-    // fs.createReadStream(req.files.file.path).pipe(writestream);
-    // writestream.on('close', function(file) {
-    //   User.findById(req.params.id, function(err, user) {
-    //     // handle error
-    //     user.file = file._id;
-    //     user.save(function(err, updatedUser) {
-    //       // handle error
-    //       return res.json(200, updatedUser)
-    //     })
-    //   });
-    //   fs.unlink(req.files.file.path, function(err) {
-    //     // handle error
-    //     console.log('success!')
-    //   });
-    // });
-
-    //router.delete('/savedResumes')
-
     return router;
 };

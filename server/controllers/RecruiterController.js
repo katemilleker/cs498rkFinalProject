@@ -13,7 +13,7 @@ function filterUser(doc){
 
 
 
-module.exports = (router, isLoggedIn) => {
+module.exports = (router, isLoggedIn, getType) => {
 
 
     router.get('/savedResumes',

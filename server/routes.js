@@ -14,6 +14,15 @@ function isLoggedIn(req, res, next) {
     return res.status(401).json({ message: "unable to auth" });
 }
 
+function getType(user){
+    if ("resumes" in user){
+      return "recruiter";
+    }else{
+      return "jobseeker";
+    }
+}
+
+
 
 module.exports = (app, passport) => {
 
@@ -27,9 +36,9 @@ module.exports = (app, passport) => {
     var router = express.Router()
 
     // routes to get profile data --> ONLY FOR JOBSEEKER
-    ProfileController(router, isLoggedIn);
-    RecruiterController(router, isLoggedIn);
-    ResumeController(router, isLoggedIn);
+    ProfileController(router, isLoggedIn, getType);
+    RecruiterController(router, isLoggedIn, getType);
+    ResumeController(router, isLoggedIn, getType);
 
 
 
