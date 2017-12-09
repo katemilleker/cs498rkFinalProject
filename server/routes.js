@@ -27,13 +27,9 @@ module.exports = (app, passport) => {
     // routes to get profile data --> ONLY FOR JOBSEEKER
     ProfileController(router, isLoggedIn);
 
-
     // authentication routes
     AuthController(router, passport);
 
-
-
     app.use(router);
-
-
+    
 };

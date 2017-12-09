@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import { StyleSheet, TouchableHighlight, Text, TextInput, View } from "react-native";
+import { signUp } from "./../../api/auth.js";
 
 export default class SignUpScreen extends Component {
   constructor(props) {
@@ -21,7 +22,17 @@ export default class SignUpScreen extends Component {
   };
 
   signUpUser = () => {
-    // todo
+    let user = {
+      email: this.state.email,
+      name: this.state.name,
+      password: this.state.password
+    };
+
+    signUp(user).then(response => {
+      // go to profile
+    }).catch(error => {
+      console.log("Error signing up:", error);
+    });
   };
 
   render() {
@@ -29,9 +40,10 @@ export default class SignUpScreen extends Component {
       <View style={[styles.container]}>
         <View style={[styles.inputContainer]}>
           <TextInput 
-            onChangeText={(text) => this.setState({username: text})}
-            value={this.state.username}
-            placeholder="username"
+            onChangeText={(text) => this.setState({email: text})}
+            value={this.state.email}
+            placeholder="email"
+            autoCapitalize="none"
             style={[styles.inputItem]}
           />
         </View>
@@ -41,6 +53,17 @@ export default class SignUpScreen extends Component {
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
             placeholder="password"
+            autoCapitalize="none"
+            secureTextEntry={true}
+            style={[styles.inputItem]}
+          />
+        </View>
+
+        <View style={[styles.inputContainer]}>
+          <TextInput 
+            onChangeText={(text) => this.setState({name: text})}
+            value={this.state.name}
+            placeholder="full name"
             style={[styles.inputItem]}
           />
         </View>
