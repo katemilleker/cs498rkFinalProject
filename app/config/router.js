@@ -13,7 +13,7 @@ export const Root = StackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: {
-      title: "Login"
+      title: "Log In"
     }
   },
   RecruiterHome: {
