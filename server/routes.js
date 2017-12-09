@@ -42,13 +42,9 @@ module.exports = (app, passport) => {
 
 
 
-
     // authentication routes
     AuthController(router, passport);
 
-
-
     app.use(router);
-
-
+    
 };

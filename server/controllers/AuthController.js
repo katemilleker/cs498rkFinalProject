@@ -1,3 +1,4 @@
+
 var secrets = require('../../secrets.js');
 var mongoose = require('mongoose');
 
@@ -30,8 +31,6 @@ module.exports = (router, passport) => {
         res.status(200).json({ message: "logged out "});
     });
 
-
-
     router.post("/loginrec",
         passport.authenticate('local-recruiter-login'),
         (req, res) => {
@@ -47,11 +46,6 @@ module.exports = (router, passport) => {
             res.status(200).json({ user: req.user.email})
         }
     );
-
-
-
-
-
 
     return router;
 };

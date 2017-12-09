@@ -11,8 +11,6 @@ function isRecruiter(user){
     return false;
 }
 
-
-
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
         var dict = {id: user.id}
@@ -38,7 +36,6 @@ module.exports = function(passport) {
             });
         }
     });
-
 
     // Registration Strategy for recruiter
     passport.use('local-recruiter-signup', new LocalStrategy({
@@ -85,9 +82,6 @@ module.exports = function(passport) {
             return done(null, user);
         });
     }));
-
-
-
 
     // Registration Strategy for regular users
     passport.use('local-signup', new LocalStrategy({
