@@ -23,7 +23,7 @@ module.exports = (router, isLoggedIn) => {
                 var resumes = doc.resumes;
                 var data = []
                 for (var pair in resumes){
-                    if(pair.status = "saved"){
+                    if(pair.status == "saved"){
                         data.push(pair.res_id);
                     }
                 }
@@ -40,7 +40,7 @@ module.exports = (router, isLoggedIn) => {
                 var resumes = doc.resumes;
                 var data = []
                 for (var pair in resumes){
-                    if(pair.status = "accepted"){
+                    if(pair.status == "accepted"){
                         data.push(pair)
                     }
                 }
@@ -57,7 +57,7 @@ module.exports = (router, isLoggedIn) => {
                 var resumes = doc.resumes;
                 var data = []
                 for (var pair in resumes){
-                    if(pair.status = "rejected"){
+                    if(pair.status == "rejected"){
                         data.push(pair)
                     }
                 }
