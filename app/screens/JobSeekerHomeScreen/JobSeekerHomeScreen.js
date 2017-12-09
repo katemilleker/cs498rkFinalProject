@@ -4,8 +4,17 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Button , TextInput, WebView} from "react-native";
 import axios from 'axios';
 
+import ImagePicker from 'react-native-image-picker'
+import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
+
 
 import QRCode from 'react-native-qrcode';
+
+
+var options = {
+  title: 'Select Resume'
+};
+
 
 
 export default class JobSeekerHomeScreen extends Component {
@@ -20,6 +29,7 @@ export default class JobSeekerHomeScreen extends Component {
       descInput: "",
       userData: null,
     };
+    this.resumeUri = null;
   }
 
 
@@ -61,6 +71,28 @@ export default class JobSeekerHomeScreen extends Component {
           defaultValue = {this.state.descInput}
           onChangeText = {(text) => this.setState({descInput : text})}
         />
+        <Button
+          title="edit Resume"
+          onPress={ () => {
+              DocumentPicker.show({
+                filetype: [DocumentPickerUtil.pdf()],
+              },(error,res) => {
+                console.log(res);
+                console.log(
+                   res.uri,
+                   res.type,
+                   res.fileName,
+                   res.fileSize
+                );
+                this.resumeUri = res.uri;
+
+
+              });
+
+            }
+
+          }
+        />
 
         <Button
           onPress={ () => {
@@ -68,7 +100,25 @@ export default class JobSeekerHomeScreen extends Component {
               details: this.state.descInput,
               major: this.state.majorInput
             }).then((res) => {
-              this.switchMode()
+              if(this.resumeUri){
+
+                var fileData = new FormData();
+                fileData.append('res', {
+                  uri: this.resumeUri,
+                  type: 'application/pdf',
+                  name: 'resumeName'
+                });
+                axios.post("http://10.0.2.2:3000/upload/", fileData)
+                  .then(() => {
+                    this.switchMode();
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+
+              }else{
+                this.switchMode();
+              }
             });
           } }
           title="Save"
@@ -175,7 +225,20 @@ export default class JobSeekerHomeScreen extends Component {
   }
 }
 
-
+// ImagePicker.showImagePicker(options, (response) => {
+//   console.log('Response = ', response);
+//
+//   if (response.didCancel) {
+//     console.log('User cancelled image picker');
+//   }
+//   else if (response.error) {
+//     console.log('ImagePicker Error: ', response.error);
+//   }
+//   else {
+//     let source = { uri: response.uri };
+//     return source;
+//   }
+// });
 
 const styles = StyleSheet.create({
   container: {
