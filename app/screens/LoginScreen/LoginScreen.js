@@ -23,13 +23,14 @@ export default class LoginScreen extends Component {
 
   loginUser = () => {
     // todo
+    this.goToJobSeekerHomeScreen();
   };
 
   render() {
     return (
       <View style={[styles.container]}>
         <View style={[styles.inputContainer]}>
-          <TextInput 
+          <TextInput
             onChangeText={(text) => this.setState({username: text})}
             value={this.state.username}
             placeholder="username"
@@ -38,7 +39,7 @@ export default class LoginScreen extends Component {
         </View>
 
         <View style={[styles.inputContainer]}>
-          <TextInput 
+          <TextInput
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
             placeholder="password"
@@ -58,7 +59,7 @@ export default class LoginScreen extends Component {
         </View>
 
         <View style={[styles.signUpRedirectRow, styles.textItem]}>
-          <Text 
+          <Text
             style={[styles.link, styles.centerText]}
             onPress={() => this.goToSignUpScreen()}>
             Need an Account? Sign Up

@@ -34,24 +34,34 @@ module.exports = (router, isLoggedIn, getType) => {
                 var gfs = new Gridfs(db, mongoDriver);
                 var path = files.res[0].path;
 
+                gfs.remove({
+                    filename: req.user["_id"] + ".pdf"
+                }, (err) =>{
+                    if(err){
+                        console.log(err);
+                    }
+                })
+
                 var writestream = gfs.createWriteStream({
-                  filename: req.user["_id"] + ".pdf",
-                  mode: 'w'
+                    filename: req.user["_id"] + ".pdf",
+                    mode: 'w'
                 });
 
                 fs.createReadStream(path).pipe(writestream);
                 writestream.on('close', (file) => {
                     User.findById(req.user["_id"], (err, user) => {
-                      // handle error
-                      user.resume = file._id;
-                      user.save((err, updatedUser) => {
-                        fs.unlink(path, function(err) {
-                          console.log('success!');
+                        // handle error
+                        user.resume = file._id;
+                        user.save((err, updatedUser) => {
+                            fs.unlink(path, function(err) {
+                                if(err){
+                                    console.log(err);
+                                }
+                            });
+                            res.status(201).json({
+                                message: "Resume added"
+                            });
                         });
-                        res.status(201).json({
-                            message: "Resume added"
-                        });
-                      });
 
                     });
 

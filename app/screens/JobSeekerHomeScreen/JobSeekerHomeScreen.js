@@ -244,20 +244,6 @@ export default class JobSeekerHomeScreen extends Component {
   }
 }
 
-// ImagePicker.showImagePicker(options, (response) => {
-//   console.log('Response = ', response);
-//
-//   if (response.didCancel) {
-//     console.log('User cancelled image picker');
-//   }
-//   else if (response.error) {
-//     console.log('ImagePicker Error: ', response.error);
-//   }
-//   else {
-//     let source = { uri: response.uri };
-//     return source;
-//   }
-// });
 
 const styles = StyleSheet.create({
   container: {
