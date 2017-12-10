@@ -33,8 +33,11 @@ export default class SignUpScreen extends Component {
     let signUp = this.state.signUpAs === "jobSeeker" ?
       signUpJobSeeker : signUpRecruiter;
 
+    let goToScreen = this.state.singUpAs === "jobSeeker" ?
+      this.goToJobSeekerHomeScreen : this.goToRecruiterHomeScreen;
+
     signUp(user).then(response => {
-      // go to profile
+      goToScreen();
     }).catch(error => {
       console.log("Error signing up:", error);
     });
@@ -65,8 +68,7 @@ export default class SignUpScreen extends Component {
           <View style={[styles.pullLeft, styles.flexGrow]}>
             <TouchableHighlight 
               style={[styles.buttonToggleItem, recruiterButtonStyle]}
-              onPress={() => this.setState({singUpAs: "recruiter"})}
-            >
+              onPress={() => this.setState({singUpAs: "recruiter"})}>
               <Text>Recruiter</Text>
             </TouchableHighlight>
           </View>

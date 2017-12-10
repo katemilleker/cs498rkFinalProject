@@ -1,10 +1,10 @@
 
+var express = require('express');
+
 const AuthController = require("./controllers/AuthController");
 const ProfileController = require("./controllers/ProfileController");
 const RecruiterController = require("./controllers/RecruiterController");
 const ResumeController = require("./controllers/ResumeController");
-
-var express = require('express')
 
 
 function isLoggedIn(req, res, next) {
@@ -22,8 +22,6 @@ function getType(user){
     }
 }
 
-
-
 module.exports = (app, passport) => {
 
     // remove before production
@@ -39,8 +37,6 @@ module.exports = (app, passport) => {
     ProfileController(router, isLoggedIn, getType);
     RecruiterController(router, isLoggedIn, getType);
     ResumeController(router, isLoggedIn, getType);
-
-
 
     // authentication routes
     AuthController(router, passport);

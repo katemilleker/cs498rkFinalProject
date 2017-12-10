@@ -1,3 +1,4 @@
+
 var secrets = require('../../secrets.js');
 var mongoose = require('mongoose');
 
@@ -39,7 +40,7 @@ module.exports = (router, isLoggedIn) => {
                      if(err){
                          console.log(err);
                          res.status(500).json({
-                             message: "fucked up!"
+                             message: "fucked up!" // lol
                          });
                      }else{
                          filterUser(doc);

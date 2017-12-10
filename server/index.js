@@ -1,27 +1,20 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-
-
-
-
 const mongoose = require("mongoose");
-const secrets = require("../secrets.js")
-
-const passport = require('passport')
+const secrets = require("../secrets.js");
+const passport = require('passport');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 
-
-
+// init passport
 require('./auth/passport')(passport);
 
 // initialize express
 const app = express();
 
+// connect to mongoose
 mongoose.connect(secrets.conn);
-
-
 
 // Allow CORS so that backend and frontend could be put on different servers
 var allowCrossDomain = function (req, res, next) {
@@ -43,6 +36,7 @@ app.use(cookieParser());
 app.use(cookieSession({
   keys: ['asdf', 'asdf']
 }));
+
 // Initialize Passport
 app.use(passport.initialize()); // Create an instance of Passport
 app.use(passport.session());

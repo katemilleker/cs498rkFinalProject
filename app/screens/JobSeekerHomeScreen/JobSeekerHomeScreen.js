@@ -146,12 +146,6 @@ export default class JobSeekerHomeScreen extends Component {
     )
   }
 
-
-
-
-
-
-
   renderViewMode(){
     var profile;
     axios.get('http://10.0.2.2:3000/profile/')
