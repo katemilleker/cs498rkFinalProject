@@ -1,12 +1,14 @@
 
 import React, { Component } from "react";
 import { StyleSheet, TouchableHighlight, Text, TextInput, View } from "react-native";
-import { signUp } from "./../../api/auth.js";
+import { signUpJobSeeker, signUpRecruiter } from "./../../api/auth.js";
 
 export default class SignUpScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      singUpAs: "jobSeeker"
+    };
   }
 
   goToJobSeekerHomeScreen = () => {
@@ -28,6 +30,9 @@ export default class SignUpScreen extends Component {
       password: this.state.password
     };
 
+    let signUp = this.state.signUpAs === "jobSeeker" ?
+      signUpJobSeeker : signUpRecruiter;
+
     signUp(user).then(response => {
       // go to profile
     }).catch(error => {
@@ -36,8 +41,37 @@ export default class SignUpScreen extends Component {
   };
 
   render() {
+    let jobSeekerButtonStyle = this.state.singUpAs === "jobSeeker" ?
+      styles.buttonToggleItemSelected : styles.buttonToggleItemNotSelected;
+
+    let recruiterButtonStyle = this.state.singUpAs === "recruiter" ?
+      styles.buttonToggleItemSelected : styles.buttonToggleItemNotSelected;
+
     return (
       <View style={[styles.container]}>
+        <View style={[styles.buttonToggleLabel]}>
+          <Text style={styles.buttonToggleLabelText}>Sign Up As</Text>
+        </View>
+
+        <View style={styles.buttonToggleRow}>
+          <View style={[styles.pullRight, styles.flexGrow]}>
+            <TouchableHighlight 
+              style={[styles.buttonToggleItem, jobSeekerButtonStyle]}
+              onPress={() => this.setState({singUpAs: "jobSeeker"})}>
+              <Text>Job Seeker</Text>
+            </TouchableHighlight>
+          </View>
+
+          <View style={[styles.pullLeft, styles.flexGrow]}>
+            <TouchableHighlight 
+              style={[styles.buttonToggleItem, recruiterButtonStyle]}
+              onPress={() => this.setState({singUpAs: "recruiter"})}
+            >
+              <Text>Recruiter</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+
         <View style={[styles.inputContainer]}>
           <TextInput 
             onChangeText={(text) => this.setState({email: text})}
@@ -98,6 +132,37 @@ const styles = StyleSheet.create({
     paddingTop: 25,
     paddingBottom: 15
   },
+  buttonToggleItem: {
+    borderRadius: 0,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 8,
+    paddingBottom: 8,
+    width: 130,
+    flexDirection: "row",
+    justifyContent: "center"
+  },
+  buttonToggleItemSelected: {
+    backgroundColor: "lightgreen"
+  },
+  buttonToggleItemNotSelected: {
+    backgroundColor: "#bbb"
+  },
+  buttonToggleLabel: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+    paddingBottom: 14
+  },
+  buttonToggleLabelText: {
+    fontSize: 15,
+    fontWeight: "bold"
+  },
+  buttonToggleRow: {
+    flexDirection: "row",
+    marginTop: 6,
+    paddingBottom: 8
+  },
   centerText: {
     textAlign: "center"
   },
@@ -105,11 +170,8 @@ const styles = StyleSheet.create({
     padding: 8,
     paddingTop: 15
   },
-  link: {
-    color: "blue"
-  },
-  loginRedirectRow: {
-    marginTop: 10
+  flexGrow: {
+    flexGrow: 1
   },
   inputContainer: {
     flexDirection: "row",
@@ -125,6 +187,20 @@ const styles = StyleSheet.create({
     width: "55%",
     height: 35,
     paddingLeft: 10
+  },
+  link: {
+    color: "blue"
+  },
+  loginRedirectRow: {
+    marginTop: 10
+  },
+  pullLeft: {
+    flexDirection: "row",
+    justifyContent: "flex-start"
+  },
+  pullRight: {
+    flexDirection: "row",
+    justifyContent: "flex-end"
   },
   signUpButton: {
     borderRadius: 8,
