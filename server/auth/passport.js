@@ -5,7 +5,7 @@ var User = require('../models/User');
 var Recruiter = require('../models/Recruiter');
 
 function isRecruiter(user){
-    if ("resumes" in user) {
+    if ("savedUsers" in user) {
         return true;
     }
     return false;

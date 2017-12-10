@@ -35,7 +35,7 @@ module.exports = (router, isLoggedIn) => {
                     }
                 }
 
-                doc.save((err, d) => {
+                doc.save((err, doc) => {
                      if(err){
                          console.log(err);
                          res.status(500).json({

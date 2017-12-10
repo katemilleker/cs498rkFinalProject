@@ -15,7 +15,7 @@ function isLoggedIn(req, res, next) {
 }
 
 function getType(user){
-    if ("resumes" in user){
+    if ("savedUsers" in user){
       return "recruiter";
     }else{
       return "jobseeker";
@@ -46,5 +46,5 @@ module.exports = (app, passport) => {
     AuthController(router, passport);
 
     app.use(router);
-    
+
 };

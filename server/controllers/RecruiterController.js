@@ -16,15 +16,57 @@ function filterUser(doc){
 module.exports = (router, isLoggedIn, getType) => {
 
 
+    router.post('/save',
+        isLoggedIn,
+        function(req, res){
+          Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
+
+              var status = req.body.status;
+              var userId = req.body.user_id;
+
+              if(status != "rejected" && status != "accepted"){
+                  status = "saved";
+              }
+              var flag = false;
+              for (var i = 0; i < doc.savedUsers.length; i++){
+                  if (doc.savedUsers[i].user_id == userId){
+                      flag = true;
+                      doc.savedUsers[i].status = status;
+                      break;
+                  }
+              }
+              if (!flag){
+                  doc.savedUsers.push({
+                    user_id: userId,
+                    status: status
+                  })
+              }
+
+              doc.save((err, doc) => {
+                   if(err){
+                       console.log(err);
+                       res.status(500).json({
+                           message: "failure"
+                       });
+                   }else{
+                       filterUser(doc);
+                       res.status(201).json({
+                           message: "User added to list"
+                       });
+                   }
+               })
+          });
+        });
+
     router.get('/savedResumes',
         isLoggedIn,
         function(req, res) {
             Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
-                var resumes = doc.resumes;
+                var resumes = doc.savedUsers;
                 var data = []
-                for (var pair in resumes){
-                    if(pair.status == "saved"){
-                        data.push(pair.res_id);
+                for (var i = 0; i < doc.savedUsers.length; i++){
+                    if(doc.savedUsers[i].status == "saved"){
+                        data.push(doc.savedUsers[i].user_id);
                     }
                 }
                 res.status(200).json({
@@ -37,11 +79,11 @@ module.exports = (router, isLoggedIn, getType) => {
         isLoggedIn,
         function(req, res) {
             Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
-                var resumes = doc.resumes;
+                var resumes = doc.savedUsers;
                 var data = []
-                for (var pair in resumes){
-                    if(pair.status == "accepted"){
-                        data.push(pair)
+                for (var i = 0; i < doc.savedUsers.length; i++){
+                    if(doc.savedUsers[i].status == "accepted"){
+                        data.push(doc.savedUsers[i].user_id);
                     }
                 }
                 res.status(200).json({
@@ -54,11 +96,11 @@ module.exports = (router, isLoggedIn, getType) => {
         isLoggedIn,
         function(req, res) {
             Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
-                var resumes = doc.resumes;
+                var resumes = doc.savedUsers;
                 var data = []
-                for (var pair in resumes){
-                    if(pair.status == "rejected"){
-                        data.push(pair)
+                for (var i = 0; i < doc.savedUsers.length; i++){
+                    if(doc.savedUsers[i].status == "rejected"){
+                        data.push(doc.savedUsers[i].user_id);
                     }
                 }
                 res.status(200).json({
