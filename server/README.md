@@ -21,7 +21,8 @@ Profile paths - paths for jobseeker
 
 Resume paths
     PUT: /upload - upload pdf to for a user.
-    GET: /upload - TODO
+    GET: /upload/:id - get resume to be viewed, parameter is the id of the resume,
+                        which is user.resume
 
 Recruiter paths
     GET: /savedResumes - get all resumes in the saved category
