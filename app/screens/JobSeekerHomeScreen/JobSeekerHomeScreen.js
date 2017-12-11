@@ -142,10 +142,7 @@ export default class JobSeekerHomeScreen extends Component {
       .catch((err) => {
         console.log(err);
         // return to login screen here on failure, but this is a test
-        return axios.post(`http://${host}:3000/login/`, {
-            email: 'joeb',
-            password: 'password'
-          });
+        this.props.navigation.goBack(null);
       });
     return(
       <View>
