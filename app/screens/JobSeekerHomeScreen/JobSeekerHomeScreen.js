@@ -1,25 +1,18 @@
 
 import React, { Component } from "react";
-
 import { StyleSheet, Text, View, Button , TextInput, WebView} from "react-native";
-import axios from 'axios';
-
 import ImagePicker from 'react-native-image-picker'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
-
-
+import axios from 'axios';
 import QRCode from 'react-native-qrcode';
 
-
-var options = {
+const options = {
   title: 'Select Resume'
 };
 
-
+const host = "localhost";
 
 export default class JobSeekerHomeScreen extends Component {
-
-
 
   constructor(props) {
     super(props);
@@ -31,23 +24,13 @@ export default class JobSeekerHomeScreen extends Component {
       resumeUri: null,
       resumeName: null
     };
-
   }
-
-
-
-
 
   switchMode() {
     this.setState({
       editMode: !this.state.editMode
     });
   }
-
-
-
-
-
 
   renderEditMode() {
     var placeholders = {};
@@ -111,7 +94,7 @@ export default class JobSeekerHomeScreen extends Component {
 
         <Button
           onPress={ () => {
-            axios.put("http://10.0.2.2:3000/profile/", {
+            axios.put(`http://${host}:3000/profile/`, {
               details: this.state.descInput,
               major: this.state.majorInput
             }).then((res) => {
@@ -122,7 +105,7 @@ export default class JobSeekerHomeScreen extends Component {
                   type: 'application/pdf',
                   name: this.state.resumeName
                 });
-                axios.post("http://10.0.2.2:3000/upload/", fileData)
+                axios.post(`http://${host}:3000/upload/`, fileData)
                   .then(() => {
                     this.switchMode();
                   })
@@ -148,7 +131,7 @@ export default class JobSeekerHomeScreen extends Component {
 
   renderViewMode(){
     var profile;
-    axios.get('http://10.0.2.2:3000/profile/')
+    axios.get(`http://${host}:3000/profile/`)
       .then((res) => {
         this.setState({
           userData: res.data.user,
@@ -159,7 +142,7 @@ export default class JobSeekerHomeScreen extends Component {
       .catch((err) => {
         console.log(err);
         // return to login screen here on failure, but this is a test
-        return axios.post('http://10.0.2.2:3000/login/', {
+        return axios.post(`http://${host}:3000/login/`, {
             email: 'joeb',
             password: 'password'
           });
@@ -187,16 +170,9 @@ export default class JobSeekerHomeScreen extends Component {
           onPress={ () => {this.switchMode()} }
           title="Edit"
         />
-
       </View>
     )
   }
-
-
-
-
-
-
 
   render() {
     var body;
@@ -224,7 +200,7 @@ export default class JobSeekerHomeScreen extends Component {
         { body }
         <Button
           onPress={ () => {
-            axios.get("http://10.0.2.2:3000/logout/", {})
+            axios.get(`http://${host}:3000/logout/`, {})
               .then((res) => {
                 this.props.navigation.goBack(null);
               });
@@ -232,12 +208,9 @@ export default class JobSeekerHomeScreen extends Component {
           title="Log out"
         />
       </View>
-
     )
-
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

@@ -40,6 +40,8 @@ export default class LoginScreen extends Component {
 
     logIn(user).then(response => {
       goToScreen();
+    }).catch(error => {
+      console.log("There was an issue logging the user in:", error);
     }); 
   };
 

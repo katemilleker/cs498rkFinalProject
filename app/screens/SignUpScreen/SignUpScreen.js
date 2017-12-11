@@ -7,7 +7,7 @@ export default class SignUpScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      singUpAs: "jobSeeker"
+      signUpAs: "jobSeeker"
     };
   }
 
@@ -33,7 +33,7 @@ export default class SignUpScreen extends Component {
     let signUp = this.state.signUpAs === "jobSeeker" ?
       signUpJobSeeker : signUpRecruiter;
 
-    let goToScreen = this.state.singUpAs === "jobSeeker" ?
+    let goToScreen = this.state.signUpAs === "jobSeeker" ?
       this.goToJobSeekerHomeScreen : this.goToRecruiterHomeScreen;
 
     signUp(user).then(response => {
@@ -44,10 +44,10 @@ export default class SignUpScreen extends Component {
   };
 
   render() {
-    let jobSeekerButtonStyle = this.state.singUpAs === "jobSeeker" ?
+    let jobSeekerButtonStyle = this.state.signUpAs === "jobSeeker" ?
       styles.buttonToggleItemSelected : styles.buttonToggleItemNotSelected;
 
-    let recruiterButtonStyle = this.state.singUpAs === "recruiter" ?
+    let recruiterButtonStyle = this.state.signUpAs === "recruiter" ?
       styles.buttonToggleItemSelected : styles.buttonToggleItemNotSelected;
 
     return (
@@ -60,7 +60,7 @@ export default class SignUpScreen extends Component {
           <View style={[styles.pullRight, styles.flexGrow]}>
             <TouchableHighlight 
               style={[styles.buttonToggleItem, jobSeekerButtonStyle]}
-              onPress={() => this.setState({singUpAs: "jobSeeker"})}>
+              onPress={() => this.setState({signUpAs: "jobSeeker"})}>
               <Text>Job Seeker</Text>
             </TouchableHighlight>
           </View>
@@ -68,7 +68,7 @@ export default class SignUpScreen extends Component {
           <View style={[styles.pullLeft, styles.flexGrow]}>
             <TouchableHighlight 
               style={[styles.buttonToggleItem, recruiterButtonStyle]}
-              onPress={() => this.setState({singUpAs: "recruiter"})}>
+              onPress={() => this.setState({signUpAs: "recruiter"})}>
               <Text>Recruiter</Text>
             </TouchableHighlight>
           </View>
