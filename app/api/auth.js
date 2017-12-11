@@ -2,7 +2,7 @@
 import axios from "axios";
 //import querystring from "querystring";
 
-var host = "localhost";
+var host = require("../host.js");
 
 module.exports.logInJobSeeker = (user) => {
   let url = `http://${host}:3000/login`;

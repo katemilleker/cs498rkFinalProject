@@ -10,7 +10,7 @@ const options = {
   title: 'Select Resume'
 };
 
-const host = "localhost";
+const host = require("../../host.js");
 
 export default class JobSeekerHomeScreen extends Component {
 
