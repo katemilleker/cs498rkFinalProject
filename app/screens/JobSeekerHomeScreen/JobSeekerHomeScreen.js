@@ -196,6 +196,12 @@ export default class JobSeekerHomeScreen extends Component {
         }
         { body }
         <Button
+          title="View Resume"
+          onPress={() => {
+            this.props.navigation.navigate("ResumeScreen", this.state);
+          }}
+        />
+        <Button
           onPress={ () => {
             axios.get(`http://${host}:3000/logout/`, {})
               .then((res) => {

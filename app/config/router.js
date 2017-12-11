@@ -7,6 +7,7 @@ import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RecruiterHomeScreen from "../screens/RecruiterHomeScreen/RecruiterHomeScreen";
 import JobSeekerHomeScreen from "../screens/JobSeekerHomeScreen/JobSeekerHomeScreen";
 import SignUpScreen from "../screens/SignUpScreen/SignUpScreen";
+import ResumeScreen from "../screens/ResumeScreen/ResumeScreen";
 
 
 export const Root = StackNavigator({
@@ -19,13 +20,13 @@ export const Root = StackNavigator({
   RecruiterHome: {
     screen: RecruiterHomeScreen,
     navigationOptions: {
-      title: "Recruiter Home"
+      title: "Home"
     }
   },
   JobSeekerHome: {
     screen: JobSeekerHomeScreen,
     navigationOptions: {
-      title: "Job Seeker Home"
+      title: "Home"
     }
   },
   SignUp: {
@@ -33,5 +34,11 @@ export const Root = StackNavigator({
     navigationOptions: {
       title: "Sign Up"
     }
-  }
+  },
+  ResumeScreen: {
+    screen: ResumeScreen,
+    navigationOptions: {
+      title: ""
+    }
+  },
 });
