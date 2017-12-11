@@ -13,7 +13,25 @@ Auth paths
     GET: /logout
 
 
-Profile paths - paths specifically for jobseeker
+Profile paths - paths for jobseeker
 
     GET: /profile - gets all data for a given user ()
+      - This one also works for getting all data for a recruiter!
     PUT: /profile - edit the user data, with data in query fields
+
+Resume paths
+    PUT: /upload - upload pdf to for a user.
+    GET: /upload - TODO
+
+Recruiter paths
+    GET: /savedResumes - get all resumes in the saved category
+    GET: /deletedResumes - get all resumes in the saved category
+    GET: /acceptedResumes - get all resumes in the saved category
+    POST: /save - save a user to the recruiter's list
+      - user_id = id of user to save
+      - status = status of user to save
+          "saved" = saved status
+          "accepted" = accepted status
+          "deleted" = deleted status
+      - The status is optional (default is saved), and if user_id is already in
+        recruiter's list, the status is just updated.
