@@ -10,6 +10,7 @@ export default class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: null,
       logInAs: "jobSeeker"
     };
   }
@@ -27,22 +28,35 @@ export default class LoginScreen extends Component {
   };
 
   loginUser = () => {
-    let logIn = this.state.logInAs === "jobSeeker" ?
-      logInJobSeeker : logInRecruiter;
+    // clear any errors
+    this.setState({error: null});
 
-    let goToScreen = this.state.logInAs === "jobSeeker" ?
-      this.goToJobSeekerHomeScreen : this.goToRecruiterHomeScreen;
+    // validate, if errors return
+    if (!this.state.email || this.state.email === "") {
+      return this.setState({error: "No email provided"});
+    }
+
+    if (!this.state.password || this.state.password === "") {
+      return this.setState({error: "No password provided"});
+    }
 
     let user = {
       email: this.state.email,
       password: this.state.password
     };
 
+    let logIn = this.state.logInAs === "jobSeeker" ?
+      logInJobSeeker : logInRecruiter;
+
+    let goToScreen = this.state.logInAs === "jobSeeker" ?
+      this.goToJobSeekerHomeScreen : this.goToRecruiterHomeScreen;
+
     logIn(user).then(response => {
       goToScreen();
     }).catch(error => {
+      this.setState({error: "There was an issue logging in"});
       console.log("There was an issue logging the user in:", error);
-    }); 
+    });
   };
 
   render() {
@@ -96,6 +110,15 @@ export default class LoginScreen extends Component {
             style={[styles.inputItem]}
           />
         </View>
+
+        {
+          this.state.error &&
+          <View style={[styles.errorRow, styles.textItem]}>
+            <Text style={[styles.centerText, styles.errorText]}>
+              { this.state.error }
+            </Text>
+          </View>
+        }
 
         <View style={[styles.buttonRow]}>
           <View style={[styles.loginButtonContainer]}>
@@ -164,6 +187,14 @@ const styles = StyleSheet.create({
   container: {
     padding: 8,
     paddingTop: 15
+  },
+  errorRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 14
+  },
+  errorText: {
+    color: "red"
   },
   flexGrow: {
     flexGrow: 1

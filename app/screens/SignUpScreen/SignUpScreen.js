@@ -7,6 +7,7 @@ export default class SignUpScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: null,
       signUpAs: "jobSeeker"
     };
   }
@@ -24,6 +25,22 @@ export default class SignUpScreen extends Component {
   };
 
   signUpUser = () => {
+    // clear any errors
+    this.setState({error: null});
+    
+    // validate, if errors return
+    if (!this.state.email || this.state.email === "") {
+      return this.setState({error: "No email provided"});
+    }
+
+    if (!this.state.password || this.state.password === "") {
+      return this.setState({error: "No password provided"});
+    }
+
+    if (!this.state.name || this.state.name === "") {
+      return this.setState({error: "No name provided"});
+    }
+
     let user = {
       email: this.state.email,
       name: this.state.name,
@@ -39,6 +56,7 @@ export default class SignUpScreen extends Component {
     signUp(user).then(response => {
       goToScreen();
     }).catch(error => {
+      this.setState({error: "There was an issue signing up"});
       console.log("Error signing up:", error);
     });
   };
@@ -103,6 +121,15 @@ export default class SignUpScreen extends Component {
             style={[styles.inputItem]}
           />
         </View>
+
+        {
+          this.state.error &&
+          <View style={[styles.errorRow, styles.textItem]}>
+            <Text style={[styles.centerText, styles.errorText]}>
+              { this.state.error }
+            </Text>
+          </View>
+        }
 
         <View style={[styles.buttonRow]}>
           <View style={[styles.signUpButtonContainer]}>
@@ -171,6 +198,14 @@ const styles = StyleSheet.create({
   container: {
     padding: 8,
     paddingTop: 15
+  },
+  errorRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 14
+  },
+  errorText: {
+    color: "red"
   },
   flexGrow: {
     flexGrow: 1
