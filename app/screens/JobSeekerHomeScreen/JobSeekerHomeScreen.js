@@ -84,6 +84,9 @@ export default class JobSeekerHomeScreen extends Component {
               DocumentPicker.show({
                 filetype: [DocumentPickerUtil.pdf()],
               },(error, res) => {
+                if (error) {
+                  console.log("ERROR", error);
+                }
                 if(res != null){
                   this.setState({
                     resumeName: res.fileName,

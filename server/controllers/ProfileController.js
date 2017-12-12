@@ -12,8 +12,6 @@ function filterUser(doc){
     doc["password"] = undefined;
 }
 
-
-
 module.exports = (router, isLoggedIn) => {
 
     router.get('/profile',
@@ -25,6 +23,7 @@ module.exports = (router, isLoggedIn) => {
                 message: "Welcome!"
             });
         });
+        
     router.put('/profile',
         isLoggedIn,
         function(req, res) {
