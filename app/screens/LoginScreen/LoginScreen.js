@@ -1,7 +1,6 @@
-
 // global imports
 import React, { Component } from "react";
-import { StyleSheet, TouchableHighlight, Text, TextInput, View } from "react-native";
+import { StyleSheet, TouchableHighlight, Text, TextInput, View, ImageBackground, Image} from "react-native";
 
 // local imports
 import { logInJobSeeker, logInRecruiter } from "./../../api/auth";
@@ -67,17 +66,30 @@ export default class LoginScreen extends Component {
       styles.buttonToggleItemSelected : styles.buttonToggleItemNotSelected;
 
     return (
+      <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
       <View style={[styles.container]}>
-        <View style={[styles.buttonToggleLabel]}>
-          <Text style={styles.buttonToggleLabelText}>Log In As</Text>
+
+       
+        <View style={styles.iconContainer}>
+          <Image
+            source={require('../../assets/images/Icon.png')}
+          />
         </View>
+        
+
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}> 
+            <Text style={{fontFamily : "Raleway-Black",fontSize: 40,color : "white"}}>H</Text>
+            YPERCRUITER</Text>
+        </View>
+        
 
         <View style={styles.buttonToggleRow}>
           <View style={[styles.pullRight, styles.flexGrow]}>
             <TouchableHighlight 
               style={[styles.buttonToggleItem, jobSeekerButtonStyle]}
               onPress={() => this.setState({logInAs: "jobSeeker"})}>
-              <Text>Job Seeker</Text>
+              <Text style={[styles.whiteColor,styles.buttonToggleLabelText]}>JOB SEEKER</Text>
             </TouchableHighlight>
           </View>
 
@@ -85,16 +97,20 @@ export default class LoginScreen extends Component {
             <TouchableHighlight 
               style={[styles.buttonToggleItem, recruiterButtonStyle]}
               onPress={() => this.setState({logInAs: "recruiter"})}>
-              <Text>Recruiter</Text>
+              <Text style={styles.buttonToggleLabelText} >RECRUITER</Text>
             </TouchableHighlight>
           </View>
         </View>
 
         <View style={[styles.inputContainer]}>
+
+
           <TextInput
             onChangeText={(text) => this.setState({email: text})}
             value={this.state.email}
-            placeholder="email"
+            underlineColorAndroid="transparent"
+            placeholderTextColor = "#FFFFFF"
+            placeholder="ENTER EMAIL"
             autoCapitalize="none"
             style={[styles.inputItem]}
           />
@@ -104,7 +120,9 @@ export default class LoginScreen extends Component {
           <TextInput
             onChangeText={(text) => this.setState({password: text})}
             value={this.state.password}
-            placeholder="password"
+            placeholder="PASS"
+            underlineColorAndroid="transparent"
+            placeholderTextColor = "#FFFFFF"
             autoCapitalize="none"
             secureTextEntry={true}            
             style={[styles.inputItem]}
@@ -126,7 +144,7 @@ export default class LoginScreen extends Component {
               underlayColor="#ddd"
               style={[styles.loginButton]}
               onPress={() => this.loginUser()}>
-              <Text style={[styles.loginButtonText]}>Log In</Text>
+              <Text style={[styles.loginButtonText]}>LOGIN</Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -139,6 +157,8 @@ export default class LoginScreen extends Component {
           </Text>
         </View>
       </View>
+      
+      </ImageBackground>
     );
   }
 }
@@ -151,42 +171,55 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   buttonToggleItem: {
-    borderRadius: 0,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingLeft: 4,
+    paddingRight: 4,
+    paddingTop: 10,
+    paddingBottom: 10,
     width: 130,
     flexDirection: "row",
     justifyContent: "center"
   },
   buttonToggleItemSelected: {
-    backgroundColor: "lightgreen"
+    backgroundColor: "#7178C4",
   },
   buttonToggleItemNotSelected: {
-    backgroundColor: "#bbb"
+    backgroundColor: "#D8D8D8",
+    
+
   },
   buttonToggleLabel: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 10,
+    marginTop: 5,
     paddingBottom: 14
   },
-  buttonToggleLabelText: {
-    fontSize: 15,
-    fontWeight: "bold"
+
+  whiteColor : {
+    color : "white"
   },
+  buttonToggleLabelText: {
+    fontSize: 14,
+    fontFamily : "Raleway-Light"
+  },
+
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+  }, 
   buttonToggleRow: {
     flexDirection: "row",
-    marginTop: 6,
+    marginTop: 30,
     paddingBottom: 8
   },
   centerText: {
     textAlign: "center"
   },
   container: {
-    padding: 8,
-    paddingTop: 15
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   errorRow: {
     flexDirection: "row",
@@ -202,36 +235,45 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    paddingTop: 20,
-    paddingBottom: 5
+    borderRadius: 50,
+    backgroundColor : 'rgba(76,76,76,.37)',
+    marginTop : 25
   },
   inputItem: {
     margin: "auto",
-    borderColor: "#333333",
-    borderRadius: 5,
-    borderWidth: 1.5,
-    width: "55%",
-    height: 35,
-    paddingLeft: 10
+    borderColor: "transparent",
+    borderRadius: 50,
+    fontSize : 14,
+    paddingLeft : 30,
+    //underlineColorAndroid : "none",
+    fontFamily : "Raleway-Thin",
+    width: "70%",
+    height: 60,
+    color : "white"
   },
   link: {
-    color: "blue"
+    color: "#FFFFFF",
+    backgroundColor : "transparent",
+    fontFamily : "Raleway-Light"
   },
   loginButton: {
-    borderRadius: 8,
-    height: 40,
+    borderRadius: 50,
+    height: 60,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ccc"
+    backgroundColor: "#7178C4"
   },
   loginButtonContainer: {
-    borderRadius: 8,
-    width: "40%",
+    marginTop : 20,
+    borderRadius: 50,
+    width: "50%",
     backgroundColor: "#ccc",
     marginTop: 10
   },
   loginButtonText: {
-    fontSize: 18
+    fontSize: 24,
+    fontFamily : "Raleway-Light",
+    color : "white",
   },
   pullLeft: {
     flexDirection: "row",
@@ -246,5 +288,19 @@ const styles = StyleSheet.create({
   },
   signUpRedirectRow: {
     marginTop: 10
+  },
+  headerContainer : {
+    
+  },
+  headerText : {
+     fontSize: 40,
+     fontFamily : "Raleway-Thin",
+     color : "white",
+     backgroundColor : "transparent",
+  },
+  iconContainer : {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom : 10
   }
 });
