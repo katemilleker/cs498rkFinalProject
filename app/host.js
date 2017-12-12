@@ -1,2 +1,4 @@
-module.exports = "localhost";
-//module.exports = "10.0.2.2";
+//module.exports = "localhost";
+import {Platform} from "react-native"
+
+module.exports = Platform.OS === 'ios' ? "localhost":"10.0.2.2";

@@ -13,8 +13,6 @@ module.exports = (router, passport) => {
     router.post("/login",
         passport.authenticate('local-login'),
         (req, res) => {
-            console.log("attempted log in")
-            console.log(req.isAuthenticated());
             res.status(200).json({ user: req.user.email});
         }
     );
@@ -34,8 +32,6 @@ module.exports = (router, passport) => {
     router.post("/loginrec",
         passport.authenticate('local-recruiter-login'),
         (req, res) => {
-            console.log(req.isAuthenticated());
-            console.log(req.user);
             res.status(200).json({ user: req.user.email});
         }
     );

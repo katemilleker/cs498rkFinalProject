@@ -1,10 +1,12 @@
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button , TextInput, WebView, ImageBackground} from "react-native";
+import { StyleSheet, Text, View, Button , TextInput, WebView, ImageBackground, Platform} from "react-native";
 import ImagePicker from 'react-native-image-picker'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import axios from 'axios';
 import QRCode from 'react-native-qrcode';
+import OpenFile from 'react-native-doc-viewer';
+
 
 const options = {
   title: 'Select Resume'
@@ -22,7 +24,8 @@ export default class JobSeekerHomeScreen extends Component {
       descInput: "",
       userData: null,
       resumeUri: null,
-      resumeName: null
+      resumeName: null,
+      resMessage: ""
     };
   }
 
@@ -164,6 +167,41 @@ export default class JobSeekerHomeScreen extends Component {
             :
               <Text> Loading </Text>
           }
+          <Text>{this.state.resMessage}</Text>
+          <Button
+            title="View Resume"
+            onPress={() => {
+              if(!this.state.userData.resume){
+                this.setState({resMessage: "Please upload your resume"});
+                return;
+              }
+              if(Platform.OS === 'ios'){
+                OpenFile.openDoc([{
+                  url:`http://${host}:3000/upload/`,
+                  fileNameOptional:"resume"
+                }], (error, url) => {
+                   if (error) {
+                     this.setState({resMessage: "Please upload your resume"})
+                   } else {
+                     this.setState({resMessage: ""})
+                   }
+                 })
+              }else{
+                OpenFile.openDoc([{
+                  url:`http://${host}:3000/upload/`,
+                  fileName:"resume",
+                  cache:false,
+                  fileType:"pdf"
+                }], (error, url) => {
+                   if (error) {
+                     this.setState({resMessage: "Please upload your resume"})
+                   } else {
+                     this.setState({resMessage: "Please upload your resume"})
+                   }
+                 })
+              }
+            }}
+          />
         <Button
           onPress={ () => {this.switchMode()} }
           title="Edit"
@@ -198,12 +236,7 @@ export default class JobSeekerHomeScreen extends Component {
             fgColor='white'/>: <Text></Text>
         }
         { body }
-        <Button
-          title="View Resume"
-          onPress={() => {
-            this.props.navigation.navigate("ResumeScreen", this.state);
-          }}
-        />
+
         <Button
           onPress={ () => {
             axios.get(`http://${host}:3000/logout/`, {})
