@@ -232,7 +232,9 @@ const styles = StyleSheet.create({
     marginTop: 14
   },
   errorText: {
-    color: "red"
+    color: "white",
+    backgroundColor : "transparent",
+    fontFamily : "Raleway-Bold"
   },
   flexGrow: {
     flexGrow: 1
