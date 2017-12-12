@@ -7,6 +7,11 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "rnpm": {
+    "assets": [
+      "./app/assets/fonts/"
+    ]
+  },
   "dependencies": {
     "axios": "^0.17.1",
     "bcrypt": "^1.0.3",

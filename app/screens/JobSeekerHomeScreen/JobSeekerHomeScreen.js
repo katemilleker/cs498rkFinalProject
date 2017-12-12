@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button , TextInput, WebView} from "react-native";
+import { StyleSheet, Text, View, Button , TextInput, WebView, ImageBackground} from "react-native";
 import ImagePicker from 'react-native-image-picker'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import axios from 'axios';
@@ -36,7 +36,7 @@ export default class JobSeekerHomeScreen extends Component {
     var placeholders = {};
 
     return(
-      <View>
+      <View style = {styles.major}>
         <Text>
           Major
         </Text>
@@ -159,7 +159,6 @@ export default class JobSeekerHomeScreen extends Component {
                   {this.state.userData.details ? this.state.userData.details : "Not written"}
                   {"\n"}
                 </Text>
-
               </View>
 
             :
@@ -183,6 +182,7 @@ export default class JobSeekerHomeScreen extends Component {
     }
 
     return (
+      <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
       <View style={styles.container}>
         <Text>
           {this.state.userData ? this.state.userData.name : ""}
@@ -191,6 +191,7 @@ export default class JobSeekerHomeScreen extends Component {
         {this.state.userData ?
 
           <QRCode
+            style = {styles.qrCode}
             value={this.state.userData._id}
             size={250}
             bgColor='black'
@@ -213,12 +214,30 @@ export default class JobSeekerHomeScreen extends Component {
           title="Log out"
         />
       </View>
+      </ImageBackground>
+
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  qrCode : {
+
+  },
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+  },
+
+  major : {
+    backgroundColor : "transparent"
   }
 });

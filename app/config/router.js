@@ -16,7 +16,8 @@ export const Root = StackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: {
-      title: "Log In"
+      title: "Log In",
+      header : null
     }
   },
   RecruiterHome: {
