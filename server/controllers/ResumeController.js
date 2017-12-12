@@ -37,10 +37,18 @@ module.exports = (router, isLoggedIn, getType) => {
                  "_id": req.params.id
             });
 
+            rs.on('error', function (err) {
+                console.log('An error occurred!', err);
+                res.status(404).json({
+                    message: "Resume not yet created"
+                })
+            });
+
             rs.pipe(ws);
             ws.on('close', function () {
                 fs.readFile('temp.pdf', function (err,data){
                     res.contentType("application/pdf");
+
                     res.send(data);
 
                     fs.unlink("temp.pdf", function(err) {
@@ -70,6 +78,14 @@ module.exports = (router, isLoggedIn, getType) => {
             var rs = gfs.createReadStream({
                  "_id": req.user.resume
             });
+
+            rs.on('error', function (err) {
+                console.log('An error occurred!', err);
+                res.status(404).json({
+                    message: "Resume not yet created"
+                })
+            });
+
             console.log("reach");
 
             rs.pipe(ws);
@@ -77,6 +93,7 @@ module.exports = (router, isLoggedIn, getType) => {
                 fs.readFile('temp.pdf', function (err,data){
                     res.contentType("application/pdf");
                     res.send(data);
+                    console.log("send");
 
                     fs.unlink("temp.pdf", function(err) {
                         if(err){

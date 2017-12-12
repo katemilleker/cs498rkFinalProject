@@ -80,11 +80,13 @@ export default class JobSeekerHomeScreen extends Component {
           onPress={ () => {
               DocumentPicker.show({
                 filetype: [DocumentPickerUtil.pdf()],
-              },(error,res) => {
-                this.setState({
-                  resumeName: res.fileName,
-                  resumeUri: res.uri
-                })
+              },(error, res) => {
+                if(res != null){
+                  this.setState({
+                    resumeName: res.fileName,
+                    resumeUri: res.uri
+                  })
+                }
               });
 
             }
