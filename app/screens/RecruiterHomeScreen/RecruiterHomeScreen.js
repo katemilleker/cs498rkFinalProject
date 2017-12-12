@@ -54,7 +54,7 @@ export default class RecruiterHomeScreen extends Component {
                 underlayColor="#ddd"
                 style={[styles.Button]}
                 onPress={() => this.goToApprovedApplicantsScreen()}>
-                <Text style={[styles.ButtonText]}>Approve Applicants</Text>
+                <Text style={[styles.ButtonText]}>Approved Applicants</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -65,7 +65,7 @@ export default class RecruiterHomeScreen extends Component {
                 underlayColor="#ddd"
                 style={[styles.Button]}
                 onPress={() => this.goToRejectedApplicantScreen()}>
-                <Text style={[styles.ButtonText]}>Reject Applicants</Text>
+                <Text style={[styles.ButtonText]}>Rejected Applicants</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Raleway-Light",
     color: "white",
+    textAlign: "center"
   },
   pullLeft: {
     flexDirection: "row",
