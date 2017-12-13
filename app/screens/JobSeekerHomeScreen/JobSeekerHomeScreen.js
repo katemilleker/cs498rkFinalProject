@@ -210,9 +210,10 @@ export default class JobSeekerHomeScreen extends Component {
                 return;
               }
               if(Platform.OS === 'ios'){
-                OpenFile.openDoc([{
+                OpenFile.openDocBinaryinUrl([{
                   url:`http://${host}:3000/upload/`,
-                  fileNameOptional:"resume"
+                  fileName:"resume",
+                  fileType:"pdf"
                 }], (error, url) => {
                    if (error) {
                      this.setState({resMessage: "Please upload your resume"})

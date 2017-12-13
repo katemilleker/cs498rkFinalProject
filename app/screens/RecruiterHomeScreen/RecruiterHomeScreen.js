@@ -1,7 +1,11 @@
 
 import React, { Component } from "react";
-import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
+import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button, Dimensions } from "react-native";
 import Camera from 'react-native-camera';
+
+var host = require("../../host.js");
+import axios from 'axios';
+
 
 export default class RecruiterHomeScreen extends Component {
   goToApprovedApplicantsScreen = () => {
@@ -28,7 +32,15 @@ export default class RecruiterHomeScreen extends Component {
 
   putData(event){
     var user_id = event.data;
-    this.setState({read: false});
+    axios.post(`http://${host}:3000/save/`, {
+        user_id: event.data
+      })
+      .then((err, res) => {
+        this.setState({
+          read: false
+        });
+      })
+
   }
 
   render() {
@@ -42,12 +54,15 @@ export default class RecruiterHomeScreen extends Component {
             barCodeTypes = {['org.iso.QRCode']}
             onBarCodeRead = {(event) => { this.putData(event); }}
             style={styles.preview}
-            aspect={Camera.constants.Aspect.fill}>
+            aspect={Camera.constants.Aspect.fill}
+            >
+            <Button
+              title="Cancel"
+              onPress={() => this.setState({read: false})}
+              />
+
           </Camera>
-          <Button
-            title="Quit"
-            onPress={() => this.setState({read: false})}
-          />
+
         </View>
       )
     }
@@ -262,7 +277,8 @@ const styles = StyleSheet.create({
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: Dimensions.get('window').width
   },
   capture: {
     flex: 0,
