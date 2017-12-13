@@ -141,13 +141,6 @@ export default class ApprovedApplicantsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  arrowBottomBox: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    flexGrow: 1,
-    paddingTop: 12
-  },
   arrowItem: {
     fontSize: 40,
     color: "white"
@@ -232,7 +225,7 @@ const styles = StyleSheet.create({
   },
   detailBoxRow: {
     flexDirection: "row",
-    height: "88%",
+    height: "85%",
     marginTop: 32,
   },
   detailName: {
