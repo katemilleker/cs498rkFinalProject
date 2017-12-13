@@ -97,7 +97,36 @@ export default class ApprovedApplicantsScreen extends Component {
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
+                     onPress={() => {
+                       if(currentApplicant.resume){
+                         if (Platform.OS === 'ios') {
+                           OpenFile.openDocBinaryinUrl([{
+                             url: `http://${host}:3000/resume/` + currentApplicant.resume,
+                             fileName: "resume",
+                             fileType: "pdf"
+                           }], (error, url) => {
+                             if (error) {
+                               this.setState({ resMessage: "Please upload your resume" })
+                             } else {
+                               this.setState({ resMessage: "" })
+                             }
+                           })
+                         } else {
+                           OpenFile.openDoc([{
+                             url: `http://${host}:3000/upload/`,
+                             fileName: "resume",
+                             cache: false,
+                             fileType: "pdf"
+                           }], (error, url) => {
+                             if (error) {
+                               this.setState({ resMessage: "Please upload your resume" })
+                             } else {
+                               this.setState({ resMessage: "Please upload your resume" })
+                             }
+                           })
+                         }
+                       }
+                     }}
                   >
                     <Text style={[styles.optionButtonText]}>Resume</Text>
                   </TouchableHighlight>
