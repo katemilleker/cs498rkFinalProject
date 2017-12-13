@@ -154,6 +154,82 @@ module.exports = (router, isLoggedIn, getType) => {
             });
         });
 
+      router.get('/savedResumesFull',
+          isLoggedIn,
+          function(req, res) {
+              Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
+                  var resumes = doc.savedUsers;
+                  var data = []
+                  for (var i = 0; i < doc.savedUsers.length; i++){
+                      if(doc.savedUsers[i].status == "saved"){
+                          data.push(
+                            mongoose.Types.ObjectId(doc.savedUsers[i].user_id)
+                          );
+                      }
+                  }
+                  User.find({
+                      '_id': { $in: data}
+                  }, function(err, docs){
+                      res.status(200).json({
+                          data: docs
+                      })
+                  });
+
+
+
+              });
+          });
+      router.get('/acceptedResumesFull',
+          isLoggedIn,
+          function(req, res) {
+              Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
+                  var resumes = doc.savedUsers;
+                  var data = []
+                  for (var i = 0; i < doc.savedUsers.length; i++){
+                      if(doc.savedUsers[i].status == "accepted"){
+                          data.push(
+                            mongoose.Types.ObjectId(doc.savedUsers[i].user_id)
+                          );
+                      }
+                  }
+                  User.find({
+                      '_id': { $in: data}
+                  }, function(err, docs){
+                      res.status(200).json({
+                          data: docs
+                      })
+                  });
+
+
+
+              });
+          });
+        router.get('/deletedResumesFull',
+            isLoggedIn,
+            function(req, res) {
+                Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
+                    var resumes = doc.savedUsers;
+                    var data = []
+                    for (var i = 0; i < doc.savedUsers.length; i++){
+                        if(doc.savedUsers[i].status == "saved"){
+                            data.push(
+                              mongoose.Types.ObjectId(doc.savedUsers[i].user_id)
+                            );
+                        }
+                    }
+                    User.find({
+                        '_id': { $in: data}
+                    }, function(err, docs){
+                        res.status(200).json({
+                            data: docs
+                        })
+                    });
+
+
+
+                });
+            });
+
     //router.delete('/savedResumes')
 
     return router;
