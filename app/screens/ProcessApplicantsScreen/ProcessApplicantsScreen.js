@@ -77,7 +77,7 @@ export default class ProcessApplicantsScreen extends Component {
                 <TouchableHighlight
                   underlayColor="#ddd"
                   style={[styles.loginButton]}
-                  onPress={() => this.loginUser()}>
+                  onPress={() => this.goToRecruiterHomeScreen()}>
                   <Text style={[styles.loginButtonText]}>Return to Menu</Text>
                 </TouchableHighlight>
               </View>

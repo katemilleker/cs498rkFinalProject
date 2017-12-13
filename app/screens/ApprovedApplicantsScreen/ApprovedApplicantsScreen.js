@@ -20,6 +20,9 @@ export default class ApprovedApplicantsScreen extends Component {
     });
   }
 
+  goToRecruiterHomeScreen = () => {
+    this.props.navigation.navigate("RecruiterHome", this.state);
+  };
 
   changeCurrentApplicant(newIdx) {
     this.setState({ currentApplicantIdx: newIdx });
@@ -48,7 +51,7 @@ export default class ApprovedApplicantsScreen extends Component {
                 <TouchableHighlight
                   underlayColor="#ddd"
                   style={[styles.loginButton]}
-                  onPress={() => this.loginUser()}>
+                  onPress={() => this.goToRecruiterHomeScreen()}>
                   <Text style={[styles.loginButtonText]}>Return to Menu</Text>
                 </TouchableHighlight>
               </View>
