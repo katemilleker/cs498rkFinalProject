@@ -23,6 +23,26 @@ module.exports = (router, isLoggedIn) => {
                 message: "Welcome!"
             });
         });
+
+    router.get('/all',
+        isLoggedIn,
+        function(req, res) {
+            let recruiter = req.user;
+
+            // must be a recruiter
+            if (!("savedUsers" in recruiter)) {
+                return res.status(500).json({
+                    message: "User must be a recruiter"
+                })
+            }
+
+            // get all users and return content
+            User.find({}, (err, result) => {
+                return res.json({
+                    applicants: result
+                });
+            });
+        });
         
     router.put('/profile',
         isLoggedIn,

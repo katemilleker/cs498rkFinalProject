@@ -61,5 +61,5 @@ export const Root = StackNavigator({
     navigationOptions: {
       title: "Process Applicants"
     }
-  },
+  }
 });
