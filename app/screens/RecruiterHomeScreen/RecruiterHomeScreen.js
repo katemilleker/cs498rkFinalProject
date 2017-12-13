@@ -1,7 +1,11 @@
 
 import React, { Component } from "react";
-import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
+import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button, Dimensions } from "react-native";
 import Camera from 'react-native-camera';
+
+var host = require("../../host.js");
+import axios from 'axios';
+
 
 export default class RecruiterHomeScreen extends Component {
   goToApprovedApplicantsScreen = () => {
@@ -16,23 +20,33 @@ export default class RecruiterHomeScreen extends Component {
     this.props.navigation.navigate("ResumeScreen", this.state);
   };
 
+  goToProcessApplicantsScreen = () => {
+    this.props.navigation.navigate("ProcessApplicantsScreen", this.state);
+  };
   constructor(props){
     super(props);
     this.state = {
-      read: true
+      read: false
     };
   }
 
   putData(event){
     var user_id = event.data;
-    this.setState({read: false})
+    axios.post(`http://${host}:3000/save/`, {
+        user_id: event.data
+      })
+      .then((err, res) => {
+        this.setState({
+          read: false
+        });
+      })
 
   }
 
   render() {
     if(this.state.read){
       return (
-        <View style={styles.container}>
+        <View style={styles.containerCam}>
           <Camera
             ref={(cam) => {
               this.camera = cam;
@@ -40,8 +54,15 @@ export default class RecruiterHomeScreen extends Component {
             barCodeTypes = {['org.iso.QRCode']}
             onBarCodeRead = {(event) => { this.putData(event); }}
             style={styles.preview}
-            aspect={Camera.constants.Aspect.fill}>
+            aspect={Camera.constants.Aspect.fill}
+            >
+            <Button
+              title="Cancel"
+              onPress={() => this.setState({read: false})}
+              />
+
           </Camera>
+
         </View>
       )
     }
@@ -73,7 +94,7 @@ export default class RecruiterHomeScreen extends Component {
               <TouchableHighlight
                 underlayColor="#ddd"
                 style={[styles.Button]}
-                onPress={() => this.goToResumeScreen()}>
+                onPress={() => this.goToProcessApplicantsScreen()}>
                 <Text style={[styles.ButtonText]}>Review Applicants</Text>
               </TouchableHighlight>
             </View>
@@ -97,6 +118,22 @@ export default class RecruiterHomeScreen extends Component {
                 style={[styles.Button]}
                 onPress={() => this.goToRejectedApplicantScreen()}>
                 <Text style={[styles.ButtonText]}>Rejected Applicants</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+
+          <View style={[styles.buttonRow]}>
+            <View style={[styles.ButtonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.Button]}
+                onPress={() => {
+                  axios.get(`http://${host}:3000/logout/`, {})
+                    .then((res) => {
+                      this.props.navigation.goBack(null);
+                    });
+                }}>
+                <Text style={[styles.ButtonText]}>Logout</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -245,5 +282,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10
+  },
+  containerCam: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    marginTop: 25,
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: Dimensions.get('window').width
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
   }
 });

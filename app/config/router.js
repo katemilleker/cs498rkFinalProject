@@ -10,7 +10,7 @@ import SignUpScreen from "../screens/SignUpScreen/SignUpScreen";
 import ResumeScreen from "../screens/ResumeScreen/ResumeScreen";
 import ApprovedApplicantsScreen from "../screens/ApprovedApplicantsScreen/ApprovedApplicantsScreen";
 import RejectedApplicantsScreen from "../screens/RejectedApplicantsScreen/RejectedApplicantsScreen";
-
+import ProcessApplicantsScreen from "../screens/ProcessApplicantsScreen/ProcessApplicantsScreen";
 
 export const Root = StackNavigator({
   Login: {
@@ -55,5 +55,11 @@ export const Root = StackNavigator({
     navigationOptions: {
       title: "Rejected Applicants"
     }
-  }
+  },
+  ProcessApplicantsScreen: {
+    screen: ProcessApplicantsScreen,
+    navigationOptions: {
+      title: "Process Applicants"
+    }
+  },
 });

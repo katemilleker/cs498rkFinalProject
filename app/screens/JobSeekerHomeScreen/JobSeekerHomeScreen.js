@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button , TextInput, WebView, ImageBackground, Platform} from "react-native";
+import {ScrollView, StyleSheet, Text, View, Button , TextInput, WebView, ImageBackground, Platform} from "react-native";
 import ImagePicker from 'react-native-image-picker'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import axios from 'axios';
@@ -97,6 +97,7 @@ export default class JobSeekerHomeScreen extends Component {
         }
 
         <Button
+          style = {styles.removeBackground}
           title="edit Resume"
           onPress={ () => {
               DocumentPicker.show({
@@ -119,6 +120,7 @@ export default class JobSeekerHomeScreen extends Component {
         />
 
         <Button
+          style = {styles.removeBackground}
           onPress={ () => {
             axios.put(`http://${host}:3000/profile/`, {
               details: this.state.descInput,
@@ -178,18 +180,18 @@ export default class JobSeekerHomeScreen extends Component {
       <View>
           {
             this.state.userData ?
-             <View>
-                <Text>
-                  Major:{"\n"}
+             <View style = {styles.userDataContainer}>
+                <Text style={styles.removeBackground}>
+                  <Text style={styles.userDataTitle}>Major: {"\n"}</Text>
                   {this.state.userData.major ? this.state.userData.major : "Not specified"}
                   {"\n"}
-                  University Name:{"\n"}
+                  <Text style={styles.userDataTitle}>University: {"\n"}</Text>
                   {this.state.userData.school ? this.state.userData.school : "Not specified"}
                   {"\n"}
-                  Graduation Year:{"\n"}
+                  <Text style={styles.userDataTitle}>Graduation Year: {"\n"}</Text>
                   {this.state.userData.school ? this.state.userData.graduating : "Not specified"}
                   {"\n"}
-                  Description/Recent Experience:{"\n"}
+                  <Text style={styles.userDataTitle}>Description: {"\n"}</Text>
                   {this.state.userData.details ? this.state.userData.details : "Not written"}
                   {"\n"}
                 </Text>
@@ -200,6 +202,7 @@ export default class JobSeekerHomeScreen extends Component {
           }
           <Text>{this.state.resMessage}</Text>
           <Button
+            style = {styles.removeBackground}
             title="View Resume"
             onPress={() => {
               if(!this.state.userData.resume){
@@ -207,9 +210,10 @@ export default class JobSeekerHomeScreen extends Component {
                 return;
               }
               if(Platform.OS === 'ios'){
-                OpenFile.openDoc([{
+                OpenFile.openDocBinaryinUrl([{
                   url:`http://${host}:3000/upload/`,
-                  fileNameOptional:"resume"
+                  fileName:"resume",
+                  fileType:"pdf"
                 }], (error, url) => {
                    if (error) {
                      this.setState({resMessage: "Please upload your resume"})
@@ -233,7 +237,8 @@ export default class JobSeekerHomeScreen extends Component {
               }
             }}
           />
-        <Button
+        <Button 
+          style = {styles.removeBackground}
           onPress={ () => {this.switchMode()} }
           title="Edit"
         />
@@ -252,23 +257,25 @@ export default class JobSeekerHomeScreen extends Component {
 
     return (
       <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <Text>
-          {this.state.userData ? this.state.userData.name : ""}
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={[styles.removeBackground, styles.userName]}>
+          {this.state.userData ? this.state.userData.name.toUpperCase() : ""}
         </Text>
 
         {this.state.userData ?
-
+          <View style={styles.qrContainer} >
           <QRCode
             style = {styles.qrCode}
             value={this.state.userData._id}
-            size={250}
+            size={150}
             bgColor='black'
-            fgColor='white'/>: <Text></Text>
+            fgColor='white'/>
+            </View>
+            : <Text></Text>
         }
         { body }
 
-        <Button
+        <Button style = {styles.removeBackground}
           onPress={ () => {
             axios.get(`http://${host}:3000/logout/`, {})
               .then((res) => {
@@ -277,7 +284,7 @@ export default class JobSeekerHomeScreen extends Component {
           } }
           title="Log out"
         />
-      </View>
+      </ScrollView>
       </ImageBackground>
 
     )
@@ -288,20 +295,60 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 
   qrCode : {
-
+     
   },
+
+  qrContainer : {
+    padding : 15,
+    backgroundColor : "white",
+    marginTop : 10 ,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  userDataContainer : {
+    padding : 15,
+    backgroundColor : "white",
+    marginTop : 30 ,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    borderBottomWidth: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
+    marginBottom : 30
+  }, 
   backgroundImage: {
     flex: 1,
     alignSelf: 'stretch',
     width: null,
   },
-
-  major : {
+  userName : {
+    fontFamily : "Raleway-Light",
+    color : "white",
+    fontSize : 20,
+    marginTop : 20,
+    marginBottom : 10
+  },
+  userDataTitle : {
+    fontFamily : "Raleway-Bold",
+    marginTop : 5
+  },
+  removeBackground : {
     backgroundColor : "transparent"
   }
 });
