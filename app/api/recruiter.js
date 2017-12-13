@@ -13,7 +13,7 @@ module.exports.getRecruiter = (callback) => {
 };
 
 module.exports.getSavedUsers = (callback) => {
-  let url = `http://${host}:3000/savedResumes`;  
+  let url = `http://${host}:3000/savedResumes`;
   axios.get(url).then(response => {
     if (callback) {
       callback(response.data.data);
@@ -40,5 +40,18 @@ module.exports.saveUser = (user, status, callback) => {
     }
   }).catch(error => {
     console.log("There was an error saving the user:", error);
+  });
+};
+
+
+
+module.exports.getUsersFullData = (callback) => {
+  let url = `http://${host}:3000/savedResumesFull`;
+  axios.get(url).then(response => {
+    if (callback) {
+      callback(response.data.data);
+    }
+  }).catch(error => {
+    console.log("There was an issue getting the saved users", error);
   });
 };
