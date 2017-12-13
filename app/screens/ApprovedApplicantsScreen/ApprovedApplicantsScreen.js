@@ -224,15 +224,15 @@ const styles = StyleSheet.create({
     borderColor: "#666",
     paddingLeft: "5%",
     paddingRight: "5%",
-    paddingBottom: "12%",
+    paddingBottom: "5%",
     width: "80%",
     flexDirection: "column",
     backgroundColor: "white",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   detailBoxRow: {
     flexDirection: "row",
-    height: "78%",
+    height: "88%",
     marginTop: 32,
   },
   detailName: {
