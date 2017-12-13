@@ -301,7 +301,7 @@ export default class JobSeekerHomeScreen extends Component {
 
     return (
       <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
-        <ScrollView  style={styles.moreSpace}>
+        <ScrollView overScrollMode="always" style={styles.moreSpace}>
         <View style={styles.container}>
           <Text style={[styles.removeBackground, styles.userName]}>
             {this.state.userData ? this.state.userData.name.toUpperCase() : ""}
