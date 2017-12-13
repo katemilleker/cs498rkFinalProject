@@ -90,17 +90,38 @@ export default class ApprovedApplicantsScreen extends Component {
                 </Text>
               </View>
 
-              <View style={[styles.buttonRow]}>
-                <View style={[styles.loginButtonContainer]}>
+              <View style={[styles.buttonColumn]}>
+                <View style={[styles.optionButtonContainer]}>
                   <TouchableHighlight
                     underlayColor="#ddd"
-                    style={[styles.loginButton]}
+                    style={[styles.optionButton]}
                   /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
                   >
-                    <Text style={[styles.loginButtonText]}>View Resume</Text>
+                    <Text style={[styles.optionButtonText]}>Resume</Text>
+                  </TouchableHighlight>
+                </View>
+
+                <View style={[styles.optionButtonContainer]}>
+                  <TouchableHighlight
+                    underlayColor="#ddd"
+                    style={[styles.optionButton]}
+                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
+                  >
+                    <Text style={[styles.optionButtonText]}>Message</Text>
+                  </TouchableHighlight>
+                </View>
+
+                <View style={[styles.optionButtonContainer]}>
+                  <TouchableHighlight
+                    underlayColor="#ddd"
+                    style={[styles.optionButton]}
+                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
+                  >
+                    <Text style={[styles.optionButtonText]}>Reject</Text>
                   </TouchableHighlight>
                 </View>
               </View>
+
             </View>
             <View style={[styles.arrowSideBox]}>
               {
@@ -113,31 +134,6 @@ export default class ApprovedApplicantsScreen extends Component {
               }
             </View>
           </View>
-
-          <View style={[styles.optionButtons]}>
-            <View style={[styles.optionButtonRow]}>
-              <View style={[styles.optionButtonContainer]}>
-                <TouchableHighlight
-                  underlayColor="#ddd"
-                  style={[styles.optionButton]}
-                /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
-                >
-                  <Text style={[styles.optionButtonText]}>Message</Text>
-                </TouchableHighlight>
-              </View>
-
-              <View style={[styles.optionButtonContainer]}>
-                <TouchableHighlight
-                  underlayColor="#ddd"
-                  style={[styles.optionButton]}
-                /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
-                >
-                  <Text style={[styles.optionButtonText]}>Reject</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </View>
-
         </View>
       </ImageBackground>
     );
@@ -167,11 +163,13 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: null,
   },
-  buttonRow: {
-    flexDirection: "row",
+  buttonColumn: {
+    flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",    
     paddingTop: 25,
-    paddingBottom: 15
+    paddingBottom: 15,
+    justifyContent: "flex-end"    
   },
   buttonToggleItem: {
     paddingLeft: 4,
@@ -214,12 +212,12 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   descriptionContainer: {
-    /*flexGrow: 1,*/
+    flexGrow: 1,
     flexDirection: "column",
-    marginTop: 40,
+    /*marginTop: 40,
     marginBottom: 40,
     marginLeft: 10,
-    marginRight: 10,
+    marginRight: 10,*/
   },
   detailBox: {
     borderWidth: 4,
@@ -228,7 +226,6 @@ const styles = StyleSheet.create({
     paddingRight: "5%",
     paddingBottom: "12%",
     width: "80%",
-    /*height: "85%",*/
     flexDirection: "column",
     backgroundColor: "white",
     justifyContent: "center"
