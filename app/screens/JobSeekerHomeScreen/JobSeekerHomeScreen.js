@@ -46,6 +46,7 @@ export default class JobSeekerHomeScreen extends Component {
         </Text>
        <View style = {styles.inputContainer}>
        <TextInput
+          underlineColorAndroid="transparent"
           editable = {true}
           defaultValue = {this.state.majorInput}
           onChangeText = {(text) => this.setState({majorInput: text})}
@@ -58,6 +59,7 @@ export default class JobSeekerHomeScreen extends Component {
         </Text>
         <View style = {styles.inputContainer}>
         <TextInput
+          underlineColorAndroid="transparent"
           editable = {true}
           defaultValue = {this.state.schoolInput}
           onChangeText = {(text) => this.setState({schoolInput : text})}
@@ -71,6 +73,7 @@ export default class JobSeekerHomeScreen extends Component {
         </Text>
         <View style = {styles.inputContainer}>
         <TextInput
+          underlineColorAndroid="transparent"
           editable = {true}
           defaultValue = {this.state.gradInput}
           onChangeText = {(text) => this.setState({gradInput : text})}
@@ -85,6 +88,7 @@ export default class JobSeekerHomeScreen extends Component {
         <TextInput
           multiline = {true}
           editable = {true}
+          underlineColorAndroid="transparent"
           defaultValue = {this.state.descInput}
           onChangeText = {(text) => this.setState({descInput : text})}
           style={[styles.inputItem]}
@@ -441,7 +445,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     width: "70%",
     color: "black",
-    height : 30
+    height : 45
   }
   
 });
