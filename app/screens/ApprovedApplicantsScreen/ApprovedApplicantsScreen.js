@@ -37,11 +37,25 @@ export default class ApprovedApplicantsScreen extends Component {
     // state when there are no applicants to process
     if (!applicants || applicants.length === 0) {
       return (
-        <View style={[styles.container]}>
-          <Text>
-            There are no more applicants to process
-          </Text>
-        </View>
+        <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
+          <View style={[styles.container]}>
+
+            <Text style={[styles.noApplicants]}>
+              There are no more potential job applicants to accept.
+              </Text>
+            <View style={[styles.noAppButton]}>
+              <View style={[styles.loginButtonContainer]}>
+                <TouchableHighlight
+                  underlayColor="#ddd"
+                  style={[styles.loginButton]}
+                  onPress={() => this.loginUser()}>
+                  <Text style={[styles.loginButtonText]}>Return to Menu</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+
+        </ImageBackground>
       )
     }
 
@@ -299,6 +313,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: "Raleway-Light",
     color: "white",
+  },
+  noApplicants: {
+    fontSize: 30,
+    fontFamily: "Raleway-Regular",
+    color: "white",
+    backgroundColor: "transparent",
+    textAlign: "center",
+    marginTop: 24
+  },
+  noAppButton: {
+    marginTop: 50,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   optionButton: {
     borderRadius: 50,
