@@ -311,7 +311,7 @@ export default class JobSeekerHomeScreen extends Component {
               <QRCode
                 style={styles.qrCode}
                 value={this.state.userData._id}
-                size={100}
+                size={300}
                 bgColor='black'
                 fgColor='white' />
             </View>
@@ -356,16 +356,16 @@ const styles = StyleSheet.create({
   qrContainer: {
     padding: 15,
     backgroundColor: "white",
-    marginTop: 10,
+    marginTop: 0,
     borderWidth: 1,
     borderRadius: 2,
     borderColor: '#ddd',
     borderBottomWidth: 0,
-    shadowColor: '#000',
+    /*shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 1,
+    elevation: 1,*/
   },
   userDataContainer: {
     padding: 15,

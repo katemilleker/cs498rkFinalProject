@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
 
 // local imports
 import { getAllJobSeekers } from "../../api/jobSeekers";
@@ -159,19 +159,6 @@ export default class ProcessApplicantsScreen extends Component {
               </Text>
               }
             </View>
-          </View>
-
-          <View style={[styles.actionRow]}>
-            <TouchableHighlight
-              style={[styles.rejectButton, styles.buttonItem]}
-              onPress={() => this.rejectJobSeeker(currentApplicant)}>
-              <Text style={[styles.buttonText]}>Reject</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={[styles.acceptButton, styles.buttonItem]}
-              onPress={() => this.approveJobSeeker(currentApplicant)}>
-              <Text style={[styles.buttonText]}>Approve</Text>
-            </TouchableHighlight>
           </View>
         </View>
       </ImageBackground>
