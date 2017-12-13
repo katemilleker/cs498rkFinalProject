@@ -317,6 +317,7 @@ export default class JobSeekerHomeScreen extends Component {
             </View>
             : <Text></Text>
           }
+          <Text>Pinch to zoom out on QR Code before scanning!</Text>
           {body}
 
           <View style={[styles.buttonRow]} >
@@ -349,10 +350,7 @@ const styles = StyleSheet.create({
   },
 
   qrCode: {
-
   },
-
-
   qrContainer: {
     padding: 15,
     backgroundColor: "white",
@@ -361,11 +359,11 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: '#ddd',
     borderBottomWidth: 0,
-    /*shadowColor: '#000',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 1,*/
+    elevation: 1,
   },
   userDataContainer: {
     padding: 15,
