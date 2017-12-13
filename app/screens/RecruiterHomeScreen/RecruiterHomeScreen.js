@@ -32,7 +32,7 @@ export default class RecruiterHomeScreen extends Component {
   render() {
     if(this.state.read){
       return (
-        <View style={styles.container}>
+        <View style={styles.containerCam}>
           <Camera
             ref={(cam) => {
               this.camera = cam;
@@ -44,7 +44,7 @@ export default class RecruiterHomeScreen extends Component {
           </Camera>
           <Button
             title="Quit"
-            onPress={() => this.setState({read:false})}
+            onPress={() => this.setState({read: false})}
           />
         </View>
       )
@@ -249,6 +249,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10
+  },
+  containerCam: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    marginTop: 25,
   },
   preview: {
     flex: 1,
