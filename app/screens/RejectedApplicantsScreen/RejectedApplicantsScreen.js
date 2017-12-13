@@ -110,7 +110,7 @@ export default class RejectedApplicantsScreen extends Component {
                   style={[styles.optionButton]}
                 /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
                 >
-                  <Text style={[styles.optionButtonText]}>Message</Text>
+                  <Text style={[styles.optionButtonText]}>Accept</Text>
                 </TouchableHighlight>
               </View>
 
@@ -120,7 +120,7 @@ export default class RejectedApplicantsScreen extends Component {
                   style={[styles.optionButton]}
                 /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
                 >
-                  <Text style={[styles.optionButtonText]}>Reject</Text>
+                  <Text style={[styles.optionButtonText]}>Delete</Text>
                 </TouchableHighlight>
               </View>
             </View>
