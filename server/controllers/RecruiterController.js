@@ -211,7 +211,7 @@ module.exports = (router, isLoggedIn, getType) => {
                     var resumes = doc.savedUsers;
                     var data = []
                     for (var i = 0; i < doc.savedUsers.length; i++){
-                        if(doc.savedUsers[i].status == "saved"){
+                        if(doc.savedUsers[i].status == "rejected"){
                             data.push(
                               mongoose.Types.ObjectId(doc.savedUsers[i].user_id)
                             );
