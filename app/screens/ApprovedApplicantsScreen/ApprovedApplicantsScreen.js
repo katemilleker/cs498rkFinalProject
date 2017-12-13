@@ -5,41 +5,17 @@ import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } f
 export default class ApprovedApplicantsScreen extends Component {
   constructor(props) {
     super(props);
-
-    // dummy data for now
     this.state = {
-      currentApplicantIdx: 0,
-      approvedApplicants: [
-        {
-          name: "Dohn Joe",
-          email: "dohnjoe@illinois.edu",
-          major: "Computer Science",
-          school: "University of Illinois",
-          details: "CEO of both Google and Starbucks. In my free time I like to set subway maps on fire and complain about tax payer waste. Hobbies include: La Croix",
-          graduating: "Spring 2020"
-        },
-        {
-          name: "Foo Bar",
-          email: "foobar@illinois.edu",
-          major: "Computer Engineering",
-          school: "University of Alaska",
-          details: "Direct descendant of Napolean. Expatriated after his death, and moved to Alaska. My goal is to study computer engineering and build an army of robots.",
-          graduating: "December 2017"
-        },
-        {
-          name: "Car Mex",
-          email: "carmex@gmail.edu",
-          major: "Statistics",
-          school: "University of Chicago",
-          details: "CEO of both La Croix and La Croix. Born with a PhD in Economics, studying statistics because it's pretty neat.",
-          graduating: "Spring 2018"
-        },
-      ]
+      currentApplicantIdx: 0
     };
   }
 
   changeCurrentApplicant(newIdx) {
     this.setState({ currentApplicantIdx: newIdx });
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
