@@ -42,15 +42,19 @@
 	<string/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>localhost</key>
+			<key>yourdomain.com</key>
 			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<key>NSIncludesSubdomains</key>
 				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
 			</dict>
 		</dict>
-	</dict>
+  </dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Raleway-Black.ttf</string>

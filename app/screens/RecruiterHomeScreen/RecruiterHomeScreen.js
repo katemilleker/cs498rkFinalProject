@@ -16,6 +16,9 @@ export default class RecruiterHomeScreen extends Component {
     this.props.navigation.navigate("ResumeScreen", this.state);
   };
 
+  goToProcessApplicantsScreen = () => {
+    this.props.navigation.navigate("ProcessApplicantsScreen", this.state);
+  };
   constructor(props){
     super(props);
     this.state = {
@@ -25,8 +28,7 @@ export default class RecruiterHomeScreen extends Component {
 
   putData(event){
     var user_id = event.data;
-    this.setState({read: false})
-
+    this.setState({read: false});
   }
 
   render() {
@@ -77,7 +79,7 @@ export default class RecruiterHomeScreen extends Component {
               <TouchableHighlight
                 underlayColor="#ddd"
                 style={[styles.Button]}
-                onPress={() => this.goToResumeScreen()}>
+                onPress={() => this.goToProcessApplicantsScreen()}>
                 <Text style={[styles.ButtonText]}>Review Applicants</Text>
               </TouchableHighlight>
             </View>
