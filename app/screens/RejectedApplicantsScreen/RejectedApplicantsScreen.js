@@ -3,6 +3,9 @@ import React, { Component } from "react";
 import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
 import { getSavedUsers, saveUser, getRecruiter, getUsersFullData, deleteUser } from "../../api/recruiter";
 
+import OpenFile from 'react-native-doc-viewer';
+
+
 export default class RejectedApplicantsScreen extends Component {
   constructor(props) {
     super(props);

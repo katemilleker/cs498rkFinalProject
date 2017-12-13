@@ -5,6 +5,7 @@ import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } f
 // local imports
 import { getAllJobSeekers } from "../../api/jobSeekers";
 import { getSavedUsers, saveUser, getRecruiter, getUsersFullData } from "../../api/recruiter";
+import OpenFile from 'react-native-doc-viewer';
 
 /**
  * Return true if the user is within the saved users array
@@ -121,7 +122,22 @@ export default class ProcessApplicantsScreen extends Component {
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
+                    onPress={() => {
+                      if(currentApplicant.resume){
+                        OpenFile.openDoc([{
+                          url: `http://${host}:3000/resume/` + currentApplicant.resume,
+                          fileName: "resume",
+                          cache: false,
+                          fileType: "pdf"
+                        }], (error, url) => {
+                          if (error) {
+                            this.setState({ resMessage: "Please upload your resume" })
+                          } else {
+                            this.setState({ resMessage: "Please upload your resume" })
+                          }
+                        })
+                      }
+                    }}
                   >
                     <Text style={[styles.optionButtonText]}>Resume</Text>
                   </TouchableHighlight>
