@@ -17,17 +17,26 @@ Profile paths - paths for jobseeker
 
     GET: /profile - gets all data for a given user ()
       - This one also works for getting all data for a recruiter!
+
     PUT: /profile - edit the user data, with data in query fields
 
+    GET: /all - returns all jobseekers
+
 Resume paths
+
     PUT: /upload - upload pdf to for a user.
+
     GET: /upload/:id - get resume to be viewed, parameter is the id of the resume,
                         which is user.resume
 
 Recruiter paths
+
     GET: /savedResumes - get all resumes in the saved category
+
     GET: /deletedResumes - get all resumes in the saved category
+
     GET: /acceptedResumes - get all resumes in the saved category
+
     POST: /save - save a user to the recruiter's list
       - user_id = id of user to save
       - status = status of user to save
