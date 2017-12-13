@@ -14,6 +14,7 @@ const options = {
 
 const host = require("../../host.js");
 
+
 export default class JobSeekerHomeScreen extends Component {
 
   constructor(props) {
@@ -22,6 +23,8 @@ export default class JobSeekerHomeScreen extends Component {
       editMode: false,
       majorInput: "",
       descInput: "",
+      schoolInput: "",
+      gradInput: "",
       userData: null,
       resumeUri: null,
       resumeName: null,
@@ -45,9 +48,26 @@ export default class JobSeekerHomeScreen extends Component {
         </Text>
         <TextInput
           editable = {true}
-          maxLength = {40}
           defaultValue = {this.state.majorInput}
           onChangeText = {(text) => this.setState({majorInput: text})}
+        />
+
+        <Text>
+          University Name
+        </Text>
+        <TextInput
+          editable = {true}
+          defaultValue = {this.state.schoolInput}
+          onChangeText = {(text) => this.setState({schoolInput : text})}
+        />
+
+        <Text>
+          Graduation Year
+        </Text>
+        <TextInput
+          editable = {true}
+          defaultValue = {this.state.gradInput}
+          onChangeText = {(text) => this.setState({gradInput : text})}
         />
 
         <Text>
@@ -59,6 +79,7 @@ export default class JobSeekerHomeScreen extends Component {
           defaultValue = {this.state.descInput}
           onChangeText = {(text) => this.setState({descInput : text})}
         />
+
         {this.state.resumeUri ?
           <View>
             <Text>
@@ -104,7 +125,9 @@ export default class JobSeekerHomeScreen extends Component {
           onPress={ () => {
             axios.put(`http://${host}:3000/profile/`, {
               details: this.state.descInput,
-              major: this.state.majorInput
+              major: this.state.majorInput,
+              school: this.state.schoolInput,
+              graduating: this.state.gradInput
             }).then((res) => {
               if(this.state.resumeUri){
                 var fileData = new FormData();
@@ -144,7 +167,9 @@ export default class JobSeekerHomeScreen extends Component {
         this.setState({
           userData: res.data.user,
           descInput: res.data.user.details,
-          majorInput: res.data.user.major
+          majorInput: res.data.user.major,
+          gradInput: res.data.user.gradInput,
+          schoolInput: res.data.user.school
         });
       })
       .catch((err) => {
@@ -160,6 +185,12 @@ export default class JobSeekerHomeScreen extends Component {
                 <Text>
                   Major:{"\n"}
                   {this.state.userData.major ? this.state.userData.major : "Not specified"}
+                  {"\n"}
+                  University Name:{"\n"}
+                  {this.state.userData.school ? this.state.userData.school : "Not specified"}
+                  {"\n"}
+                  Graduation Year:{"\n"}
+                  {this.state.userData.school ? this.state.userData.graduating : "Not specified"}
                   {"\n"}
                   Description/Recent Experience:{"\n"}
                   {this.state.userData.details ? this.state.userData.details : "Not written"}
