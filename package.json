@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "crypto": "^1.0.1",
+    "expo": "^23.0.6",
     "express": "^4.16.2",
     "gridfs-stream": "^1.1.1",
     "mongoose": "^4.13.5",
