@@ -1,6 +1,6 @@
-
+var host = require("../../host.js");
 import React, { Component } from "react";
-import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
+import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button, Platform } from "react-native";
 import { getSavedUsers, saveUser, getRecruiter, getUsersFullData, deleteUser } from "../../api/recruiter";
 
 import OpenFile from 'react-native-doc-viewer';
@@ -132,9 +132,8 @@ export default class ApprovedApplicantsScreen extends Component {
                            })
                          } else {
                            OpenFile.openDoc([{
-                             url: `http://${host}:3000/upload/`,
+                             url: `http://${host}:3000/resume/` + currentApplicant.resume,
                              fileName: "resume",
-                             cache: false,
                              fileType: "pdf"
                            }], (error, url) => {
                              if (error) {
