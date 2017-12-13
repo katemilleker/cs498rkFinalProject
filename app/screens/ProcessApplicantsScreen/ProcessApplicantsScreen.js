@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
 
 // local imports
 import { getAllJobSeekers } from "../../api/jobSeekers";
-import { getSavedUsers, saveUser, getRecruiter } from "../../api/recruiter";
+import { getSavedUsers, saveUser, getRecruiter, getUsersFullData } from "../../api/recruiter";
 
 /**
  * Return true if the user is within the saved users array
@@ -32,7 +32,7 @@ export default class ProcessApplicantsScreen extends Component {
   }
 
   componentWillMount() {
-    getSavedUsersFull(savedUsers => {
+    getUsersFullData("saved", savedUsers => {
       this.setState({applicants: savedUsers});
     });
   }

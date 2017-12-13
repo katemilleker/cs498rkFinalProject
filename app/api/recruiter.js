@@ -45,8 +45,8 @@ module.exports.saveUser = (user, status, callback) => {
 
 
 
-module.exports.getUsersFullData = (callback) => {
-  let url = `http://${host}:3000/savedResumesFull`;
+module.exports.getUsersFullData = (status, callback) => {
+  let url = `http://${host}:3000/`+status+`ResumesFull`;
   axios.get(url).then(response => {
     if (callback) {
       callback(response.data.data);
