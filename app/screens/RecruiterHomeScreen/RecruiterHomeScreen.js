@@ -31,7 +31,6 @@ export default class RecruiterHomeScreen extends Component {
 
   render() {
     if(this.state.read){
-      console.log("NOOOe");
       return (
         <View style={styles.container}>
           <Camera

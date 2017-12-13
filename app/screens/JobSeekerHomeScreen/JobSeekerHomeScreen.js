@@ -7,13 +7,10 @@ import axios from 'axios';
 import QRCode from 'react-native-qrcode';
 import OpenFile from 'react-native-doc-viewer';
 
-
+const host = require("../../host.js");
 const options = {
   title: 'Select Resume'
 };
-
-const host = require("../../host.js");
-
 
 export default class JobSeekerHomeScreen extends Component {
 

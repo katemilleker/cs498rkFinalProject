@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 48762,
-  "expoServerNgrokUrl": "https://x8-7rb.djamrozik.hyperecruiter.exp.direct",
-  "packagerNgrokUrl": "https://packager.x8-7rb.djamrozik.hyperecruiter.exp.direct",
-  "ngrokPid": 48793
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
