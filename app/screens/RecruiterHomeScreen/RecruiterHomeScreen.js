@@ -19,7 +19,7 @@ export default class RecruiterHomeScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      read: true
+      read: false
     };
   }
 
@@ -42,6 +42,10 @@ export default class RecruiterHomeScreen extends Component {
             style={styles.preview}
             aspect={Camera.constants.Aspect.fill}>
           </Camera>
+          <Button
+            title="Quit"
+            onPress={() => this.setState({read:false})}
+          />
         </View>
       )
     }
@@ -245,5 +249,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 10
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
   }
 });
