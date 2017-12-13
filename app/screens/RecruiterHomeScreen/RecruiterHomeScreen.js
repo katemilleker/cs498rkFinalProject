@@ -134,7 +134,7 @@ export default class RecruiterHomeScreen extends Component {
                       this.props.navigation.goBack(null);
                     });
                 }}>
-                <Text style={[styles.ButtonText]}>Logout</Text>
+                <Text style={[styles.ButtonText]}>LOGOUT</Text>
               </TouchableHighlight>
             </View>
           </View>

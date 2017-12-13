@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
   userName: {
     fontFamily: "Raleway-Regular",
     color: "white",
-    fontSize: 20,
+    fontSize: 30,
     marginTop: 20,
     marginBottom: 10
   },
