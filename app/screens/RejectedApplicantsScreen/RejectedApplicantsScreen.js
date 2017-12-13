@@ -39,7 +39,7 @@ export default class RejectedApplicantsScreen extends Component {
   }
 
   changeCurrentApplicant(newIdx) {
-    this.setState({ currentApplicantIdx: newIdx });
+    this.setState({currentApplicantIdx: newIdx});
   }
 
   render() {
@@ -47,88 +47,63 @@ export default class RejectedApplicantsScreen extends Component {
     let currentApplicant = rejectedApplicants[currentApplicantIdx];
 
     return (
-      <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
-        <View style={styles.container}>
-          {
-            (rejectedApplicants && rejectedApplicants.length > 0) &&
-            <Text style={[styles.itemIndicator]}>
-              Applicant {currentApplicantIdx + 1} out of {rejectedApplicants.length}
+      <View style={styles.container}>
+        {
+          (rejectedApplicants && rejectedApplicants.length > 0) &&
+          <Text style={[styles.itemIndicator]}>
+            Applicant {currentApplicantIdx + 1} out of {rejectedApplicants.length}
+          </Text> 
+        }
+
+        <View style={[styles.detailBoxRow]}>
+          <View style={[styles.arrowSideBox]}>
+            {
+              (currentApplicantIdx > 0) &&
+              <Text 
+                style={[styles.arrowItem]}
+                onPress={() => this.changeCurrentApplicant(currentApplicantIdx - 1)}>
+                &#x2190;
+              </Text>
+            }
+          </View>
+          <View style={[styles.detailBox]}>
+            <Text style={[styles.detailName]}>
+              { currentApplicant.name }
             </Text>
-          }
 
-          <View style={[styles.detailBoxRow]}>
-            <View style={[styles.arrowSideBox]}>
-              {
-                (currentApplicantIdx > 0) &&
-                <Text
-                  style={[styles.arrowItem]}
-                  onPress={() => this.changeCurrentApplicant(currentApplicantIdx - 1)}>
-                  &#x2190;
-              </Text>
-              }
-            </View>
-            <View style={[styles.detailBox]}>
-              <Text style={[styles.detailName]}>
-                {currentApplicant.name}
-              </Text>
+            <Text style={[styles.detailMajor, styles.detailTextItem]}>
+              { currentApplicant.major }
+            </Text>
 
-              <Text style={[styles.detailMajor, styles.detailTextItem]}>
-                {currentApplicant.major}
-              </Text>
+            <Text style={[styles.detailSchool, styles.detailTextItem]}>
+              { currentApplicant.school } 
+            </Text>
 
-              <Text style={[styles.detailSchool, styles.detailTextItem]}>
-                {currentApplicant.school}
+            <Text style={[styles.detailYear, styles.detailTextItem]}>
+              Graduating { currentApplicant.graduating }
+            </Text>
+            
+            <View style={[styles.descriptionContainer]}>
+              <Text style={[styles.detailTextItem]}>
+                { currentApplicant.details }
               </Text>
-
-              <Text style={[styles.detailYear, styles.detailTextItem]}>
-                Graduating {currentApplicant.graduating}
-              </Text>
-
-              <View style={[styles.descriptionContainer]}>
-                <Text style={[styles.detailTextItem]}>
-                  {currentApplicant.details}
-                </Text>
-              </View>
-            </View>
-            <View style={[styles.arrowSideBox]}>
-              {
-                (currentApplicantIdx < (rejectedApplicants.length - 1)) &&
-                <Text
-                  style={[styles.arrowItem]}
-                  onPress={() => this.changeCurrentApplicant(currentApplicantIdx + 1)}>
-                  &#x2192;
-              </Text>
-              }
             </View>
           </View>
-
-          <View style={[styles.optionButtons]}>
-            <View style={[styles.optionButtonRow]}>
-              <View style={[styles.optionButtonContainer]}>
-                <TouchableHighlight
-                  underlayColor="#ddd"
-                  style={[styles.optionButton]}
-                /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
-                >
-                  <Text style={[styles.optionButtonText]}>Accept</Text>
-                </TouchableHighlight>
-              </View>
-
-              <View style={[styles.optionButtonContainer]}>
-                <TouchableHighlight
-                  underlayColor="#ddd"
-                  style={[styles.optionButton]}
-                /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
-                >
-                  <Text style={[styles.optionButtonText]}>Delete</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
+          <View style={[styles.arrowSideBox]}>
+            {
+              (currentApplicantIdx < (rejectedApplicants.length - 1)) &&
+              <Text 
+                style={[styles.arrowItem]}
+                onPress={() => this.changeCurrentApplicant(currentApplicantIdx + 1)}>
+                &#x2192;
+              </Text>
+            }
           </View>
-
         </View>
-      </ImageBackground>
-
+        <View style={[styles.arrowBottomBox]}>
+          <Text style={[styles.arrowItem]}>&#x2193;</Text>
+        </View>
+      </View>
     );
   }
 }
@@ -170,7 +145,7 @@ const styles = StyleSheet.create({
     paddingBottom: "12%",
     width: "80%",
     flexDirection: "column"
-  },
+  },  
   detailBoxRow: {
     flexDirection: "row",
     height: "78%",
