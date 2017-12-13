@@ -106,22 +106,23 @@ export default class RejectedApplicantsScreen extends Component {
                     <Text style={[styles.optionButtonText]}>Resume</Text>
                   </TouchableHighlight>
                 </View>
+
                 <View style={[styles.optionButtonContainer]}>
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                    onPress={() => this.approveJobSeeker(currentApplication, currentApplicantIdx)}>
+                    onPress={() => this.approveJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
-                    <Text style={[styles.optionButtonText]}>Re-save</Text>
+                    <Text style={[styles.optionButtonText]}>Save</Text>
                   </TouchableHighlight>
                 </View>
                 <View style={[styles.optionButtonContainer]}>
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                    onPress={() => this.rejectJobSeeker(currentApplication, currentApplicantIdx)}>
+                    onPress={() => this.rejectJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
-                    <Text style={[styles.optionButtonText]}>Reject</Text>
+                    <Text style={[styles.optionButtonText]}>Reject Forever</Text>
                   </TouchableHighlight>
                 </View>
               </View>

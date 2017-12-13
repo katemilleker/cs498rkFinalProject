@@ -108,7 +108,7 @@ export default class ApprovedApplicantsScreen extends Component {
                     style={[styles.optionButton]}
                     onPress={() => this.approveJobSeeker(currentApplication, currentApplicantIdx)}>
                   >
-                    <Text style={[styles.optionButtonText]}>Re-save</Text>
+                    <Text style={[styles.optionButtonText]}></Text>
                   </TouchableHighlight>
                 </View>
                 <View style={[styles.optionButtonContainer]}>
@@ -117,7 +117,7 @@ export default class ApprovedApplicantsScreen extends Component {
                     style={[styles.optionButton]}
                     onPress={() => this.rejectJobSeeker(currentApplication, currentApplicantIdx)}>
                   >
-                    <Text style={[styles.optionButtonText]}>Reject</Text>
+                    <Text style={[styles.optionButtonText]}>Un-save</Text>
                   </TouchableHighlight>
                 </View>
               </View>
@@ -137,7 +137,6 @@ export default class ApprovedApplicantsScreen extends Component {
         </View>
       </ImageBackground>
     )
-  }
 }
 
 const styles = StyleSheet.create({
