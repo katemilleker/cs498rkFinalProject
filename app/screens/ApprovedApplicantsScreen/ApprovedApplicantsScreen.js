@@ -14,7 +14,7 @@ export default class ApprovedApplicantsScreen extends Component {
   }
 
   componentWillMount() {
-    getUsersFullData("saved", savedUsers => {
+    getUsersFullData("accepted", savedUsers => {
       this.setState({ applicants: savedUsers });
     });
   }
@@ -102,14 +102,22 @@ export default class ApprovedApplicantsScreen extends Component {
                     <Text style={[styles.optionButtonText]}>Resume</Text>
                   </TouchableHighlight>
                 </View>
-
+                <View style={[styles.optionButtonContainer]}>
+                  <TouchableHighlight
+                    underlayColor="#ddd"
+                    style={[styles.optionButton]}
+                    onPress={() => this.approveJobSeeker(currentApplication, currentApplicantIdx)}>
+                  >
+                    <Text style={[styles.optionButtonText]}>Re-save</Text>
+                  </TouchableHighlight>
+                </View>
                 <View style={[styles.optionButtonContainer]}>
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
                     onPress={() => this.rejectJobSeeker(currentApplication, currentApplicantIdx)}>
                   >
-                    <Text style={[styles.optionButtonText]}>Un-accept</Text>
+                    <Text style={[styles.optionButtonText]}>Reject</Text>
                   </TouchableHighlight>
                 </View>
               </View>

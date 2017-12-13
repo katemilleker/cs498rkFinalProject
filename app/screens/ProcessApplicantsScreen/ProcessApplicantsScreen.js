@@ -52,7 +52,7 @@ export default class ProcessApplicantsScreen extends Component {
     let { applicants } = this.state;
     applicants.splice(i, 1);
     this.setState({ applicants });
-    saveUser(user, "deleted");
+    saveUser(user, "rejected");
   };
 
   render() {
@@ -131,7 +131,7 @@ export default class ProcessApplicantsScreen extends Component {
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                    onPress={() => this.approveJobSeeker(currentApplication, currentApplicantIdx)}
+                    onPress={() => this.approveJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
                     <Text style={[styles.optionButtonText]}>Accept</Text>
                   </TouchableHighlight>
@@ -140,7 +140,7 @@ export default class ProcessApplicantsScreen extends Component {
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                    onPress={() => this.rejectJobSeeker(currentApplication, currentApplicantIdx)}
+                    onPress={() => this.rejectJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
                     <Text style={[styles.optionButtonText]}>Reject</Text>
                   </TouchableHighlight>

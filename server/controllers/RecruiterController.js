@@ -204,7 +204,7 @@ module.exports = (router, isLoggedIn, getType) => {
 
               });
           });
-        router.get('/deletedResumesFull',
+        router.get('/rejectedResumesFull',
             isLoggedIn,
             function(req, res) {
                 Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
