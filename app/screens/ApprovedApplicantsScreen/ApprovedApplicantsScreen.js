@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     paddingRight: "5%",
     paddingBottom: "12%",
     width: "80%",
-    /*height: "85%",*/
+    height: "40%",
     flexDirection: "column",
     backgroundColor: "white",
     justifyContent: "center"
