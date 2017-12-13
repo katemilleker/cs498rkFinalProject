@@ -22,13 +22,17 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate("RecruiterHome", this.state);
   };
 
+  goToApprovedApplicantScreen = () => {
+    this.props.navigation.navigate("ApprovedApplicantsScreen", this.state);
+  };
+
   goToSignUpScreen = () => {
     this.props.navigation.navigate("SignUp", this.state);
   };
 
   loginUser = () => {
     // clear any errors
-    this.setState({error: null});
+    this.setState({ error: null });
 
     // validate, if errors return
     if (!this.state.email || this.state.email === "") {
@@ -149,6 +153,17 @@ export default class LoginScreen extends Component {
             </View>
           </View>
 
+          <View style={[styles.buttonRow]}>
+            <View style={[styles.loginButtonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.loginButton]}
+                onPress={() => this.goToApprovedApplicantScreen()}>
+                <Text style={[styles.loginButtonText]}>Approved Applicant</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+
           <View style={[styles.signUpRedirectRow, styles.textItem]}>
             <Text
               style={[styles.link, styles.centerText]}
@@ -223,8 +238,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "white",
-    backgroundColor : "transparent",
-    fontFamily : "Raleway-Bold"
+    backgroundColor: "transparent",
+    fontFamily: "Raleway-Bold"
   },
   flexGrow: {
     flexGrow: 1
