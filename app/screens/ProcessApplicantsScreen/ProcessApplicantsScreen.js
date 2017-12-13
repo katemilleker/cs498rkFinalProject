@@ -1,6 +1,8 @@
 
 import React, { Component } from "react";
 import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
+import axios from 'axios';
+
 
 // local imports
 import { getAllJobSeekers } from "../../api/jobSeekers";
@@ -77,7 +79,9 @@ export default class ProcessApplicantsScreen extends Component {
                 <TouchableHighlight
                   underlayColor="#ddd"
                   style={[styles.loginButton]}
-                  onPress={() => this.goToRecruiterHomeScreen()}>
+                  onPress={() => {
+                    this.props.navigation.goBack(null);
+                  }}>
                   <Text style={[styles.loginButtonText]}>Return to Menu</Text>
                 </TouchableHighlight>
               </View>
@@ -142,7 +146,7 @@ export default class ProcessApplicantsScreen extends Component {
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
                     onPress={() => {
-                      if(currentApplicant.resume){
+                      if (currentApplicant.resume) {
                         if (Platform.OS === 'ios') {
                           OpenFile.openDocBinaryinUrl([{
                             url: `http://${host}:3000/resume/` + currentApplicant.resume,

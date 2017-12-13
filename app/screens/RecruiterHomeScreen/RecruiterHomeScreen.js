@@ -31,6 +31,10 @@ export default class RecruiterHomeScreen extends Component {
     this.props.navigation.navigate("ProcessApplicantsScreen", this.state);
   };
 
+  goToLoginScreen = () => {
+    this.props.navigation.navigate("LoginScreen", this.state);
+  };
+
   putData(event){
     var user_id = event.data;
     axios.post(`http://${host}:3000/save/`, {

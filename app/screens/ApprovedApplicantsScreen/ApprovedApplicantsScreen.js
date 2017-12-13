@@ -51,7 +51,9 @@ export default class ApprovedApplicantsScreen extends Component {
                 <TouchableHighlight
                   underlayColor="#ddd"
                   style={[styles.loginButton]}
-                  onPress={() => this.goToRecruiterHomeScreen()}>
+                  onPress={() => {
+                    this.props.navigation.goBack(null);
+                  }}>
                   <Text style={[styles.loginButtonText]}>Return to Menu</Text>
                 </TouchableHighlight>
               </View>
