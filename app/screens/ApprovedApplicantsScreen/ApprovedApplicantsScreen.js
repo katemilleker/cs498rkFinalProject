@@ -137,6 +137,7 @@ export default class ApprovedApplicantsScreen extends Component {
               </View>
             </View>
           </View>
+
         </View>
       </ImageBackground>
     );
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     paddingTop: 12
   },
   arrowItem: {
-    fontSize: 55,
+    fontSize: 40,
     color: "white"
   },
   arrowSideBox: {
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
     flexDirection: "column"
   },
   descriptionContainer: {
-    flexGrow: 1,
+    /*flexGrow: 1,*/
     flexDirection: "column",
     marginTop: 40,
     marginBottom: 40,
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 12,
-    flexGrow: 1,
+    /*flexGrow: 1,*/
   },
   optionButtonRow: {
     flexDirection: "row",

@@ -153,6 +153,17 @@ export default class LoginScreen extends Component {
             </View>
           </View>
 
+          <View style={[styles.buttonRow]}>
+            <View style={[styles.loginButtonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.loginButton]}
+                onPress={() => this.goToApprovedApplicantScreen()}>
+                <Text style={[styles.loginButtonText]}>Approved Applicant</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+
           <View style={[styles.signUpRedirectRow, styles.textItem]}>
             <Text
               style={[styles.link, styles.centerText]}
