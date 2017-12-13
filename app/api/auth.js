@@ -1,6 +1,5 @@
 
 import axios from "axios";
-//import querystring from "querystring";
 
 var host = require("../host.js");
 

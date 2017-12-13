@@ -8,6 +8,13 @@ import axios from 'axios';
 
 
 export default class RecruiterHomeScreen extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      read: false
+    };
+  }
+
   goToApprovedApplicantsScreen = () => {
     this.props.navigation.navigate("ApprovedApplicantsScreen", this.state);
   };
@@ -23,12 +30,6 @@ export default class RecruiterHomeScreen extends Component {
   goToProcessApplicantsScreen = () => {
     this.props.navigation.navigate("ProcessApplicantsScreen", this.state);
   };
-  constructor(props){
-    super(props);
-    this.state = {
-      read: false
-    };
-  }
 
   putData(event){
     var user_id = event.data;
@@ -40,7 +41,6 @@ export default class RecruiterHomeScreen extends Component {
           read: false
         });
       })
-
   }
 
   render() {
@@ -66,6 +66,7 @@ export default class RecruiterHomeScreen extends Component {
         </View>
       )
     }
+    
     return (
       <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
         <View style={styles.headerContainer}>
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
   ButtonContainer: {
     marginTop: 20,
     borderRadius: 50,
-    width: "50%",
+    width: "60%",
     backgroundColor: "#ccc",
     marginTop: 10
   },
