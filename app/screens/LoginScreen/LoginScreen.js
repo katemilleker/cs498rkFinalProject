@@ -26,6 +26,10 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate("ApprovedApplicantsScreen", this.state);
   };
 
+  goToRejectedApplicantScreen = () => {
+    this.props.navigation.navigate("RejectedApplicantsScreen", this.state);
+  };
+
   goToSignUpScreen = () => {
     this.props.navigation.navigate("SignUp", this.state);
   };
@@ -164,6 +168,17 @@ export default class LoginScreen extends Component {
             </View>
           </View>
 
+          <View style={[styles.buttonRow]}>
+            <View style={[styles.loginButtonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.loginButton]}
+                onPress={() => this.goToRejectedApplicantScreen()}>
+                <Text style={[styles.loginButtonText]}>Rejected Applicant</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+
           <View style={[styles.signUpRedirectRow, styles.textItem]}>
             <Text
               style={[styles.link, styles.centerText]}
@@ -240,9 +255,6 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "transparent",
     fontFamily: "Raleway-Bold"
-  },
-  flexGrow: {
-    flexGrow: 1
   },
   inputContainer: {
     flexDirection: "row",
