@@ -1,4 +1,9 @@
 {
   "name": "resume_recruiter",
-  "displayName": "resume_recruiter"
+  "displayName": "resume_recruiter",
+  "expo": {
+    "name": "resume_recruiter",
+    "slug": "resume_recruiter",
+    "sdkVersion": "23.0.6"
+  }
 }
