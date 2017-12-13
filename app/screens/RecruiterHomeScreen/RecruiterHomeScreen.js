@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
+import Camera from 'react-native-camera';
 
 export default class RecruiterHomeScreen extends Component {
   goToApprovedApplicantsScreen = () => {
@@ -15,7 +16,36 @@ export default class RecruiterHomeScreen extends Component {
     this.props.navigation.navigate("ResumeScreen", this.state);
   };
 
+  constructor(props){
+    super(props);
+    this.state = {
+      read: true
+    };
+  }
+
+  putData(event){
+    var user_id = event.data;
+    this.setState({read: false})
+
+  }
+
   render() {
+    if(this.state.read){
+      console.log("NOOOe");
+      return (
+        <View style={styles.container}>
+          <Camera
+            ref={(cam) => {
+              this.camera = cam;
+            }}
+            barCodeTypes = {['org.iso.QRCode']}
+            onBarCodeRead = {(event) => { this.putData(event); }}
+            style={styles.preview}
+            aspect={Camera.constants.Aspect.fill}>
+          </Camera>
+        </View>
+      )
+    }
     return (
       <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
         <View style={styles.headerContainer}>
@@ -30,7 +60,9 @@ export default class RecruiterHomeScreen extends Component {
               <TouchableHighlight
                 underlayColor="#ddd"
                 style={[styles.Button]}
-                /*TODO: onPress={}*/
+                onPress={ () => {
+                  this.setState({read: true});
+                }}
                 >
                 <Text style={[styles.ButtonText]}>Scan QR Codes</Text>
               </TouchableHighlight>
@@ -200,9 +232,9 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   headerContainer: {
-    flexDirection: "row",    
+    flexDirection: "row",
     justifyContent: "center",
-    paddingTop: 40,    
+    paddingTop: 40,
   },
   headerText: {
     fontSize: 40,
@@ -216,4 +248,3 @@ const styles = StyleSheet.create({
     marginBottom: 10
   }
 });
-
