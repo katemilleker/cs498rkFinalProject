@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import {ScrollView, StyleSheet, Text, View, Button , TextInput, WebView, ImageBackground, Platform} from "react-native";
+import {TouchableHighlight,ScrollView, StyleSheet, Text, View, Button , TextInput, WebView, ImageBackground, Platform} from "react-native";
 import ImagePicker from 'react-native-image-picker'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
 import axios from 'axios';
@@ -39,43 +39,58 @@ export default class JobSeekerHomeScreen extends Component {
     var placeholders = {};
 
     return(
-      <View style = {styles.major}>
-        <Text>
+      <View >
+        <View style = {styles.userDataContainer}>
+        <Text style={styles.userDataTitle}>
           Major
         </Text>
-        <TextInput
+       <View style = {styles.inputContainer}>
+       <TextInput
           editable = {true}
           defaultValue = {this.state.majorInput}
           onChangeText = {(text) => this.setState({majorInput: text})}
+          style={[styles.inputItem]}
         />
+       </View>
 
-        <Text>
-          University Name
+        <Text style={styles.userDataTitle}>
+          University
         </Text>
+        <View style = {styles.inputContainer}>
         <TextInput
           editable = {true}
           defaultValue = {this.state.schoolInput}
           onChangeText = {(text) => this.setState({schoolInput : text})}
+          style={[styles.inputItem]}
         />
+        </View>
+      
 
-        <Text>
+        <Text style={styles.userDataTitle}>
           Graduation Year
         </Text>
+        <View style = {styles.inputContainer}>
         <TextInput
           editable = {true}
           defaultValue = {this.state.gradInput}
           onChangeText = {(text) => this.setState({gradInput : text})}
+          style={[styles.inputItem]}
         />
+        </View>
 
-        <Text>
+        <Text style={styles.userDataTitle}>
           Description/Recent Experience
         </Text>
+        <View style = {styles.inputContainer}>
         <TextInput
           multiline = {true}
           editable = {true}
           defaultValue = {this.state.descInput}
           onChangeText = {(text) => this.setState({descInput : text})}
-        />
+          style={[styles.inputItem]}
+        /> 
+        </View>
+        </View>
 
         {this.state.resumeUri ?
           <View>
@@ -93,68 +108,83 @@ export default class JobSeekerHomeScreen extends Component {
               }
             />
           </View>
-          : <Text></Text>
+          : null
         }
 
-        <Button
-          style = {styles.removeBackground}
-          title="edit Resume"
-          onPress={ () => {
-              DocumentPicker.show({
-                filetype: [DocumentPickerUtil.pdf()],
-              },(error, res) => {
-                if (error) {
-                  console.log("ERROR", error);
-                }
-                if(res != null){
-                  this.setState({
-                    resumeName: res.fileName,
-                    resumeUri: res.uri
-                  })
-                }
-              });
 
-            }
+        
+        
 
-          }
-        />
+            <View style = {styles.buttonRow}>
 
-        <Button
-          style = {styles.removeBackground}
-          onPress={ () => {
-            axios.put(`http://${host}:3000/profile/`, {
-              details: this.state.descInput,
-              major: this.state.majorInput,
-              school: this.state.schoolInput,
-              graduating: this.state.gradInput
-            }).then((res) => {
-              if(this.state.resumeUri){
-                var fileData = new FormData();
-                fileData.append('res', {
-                  uri: this.state.resumeUri,
-                  type: 'application/pdf',
-                  name: this.state.resumeName
-                });
-                axios.post(`http://${host}:3000/upload/`, fileData)
-                  .then(() => {
-                    this.switchMode();
-                  })
-                  .catch((err) => {
-                    console.log(err);
+            <View style={[styles.buttonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.button]}
+                onPress={ () => {
+                  axios.put(`http://${host}:3000/profile/`, {
+                    details: this.state.descInput,
+                    major: this.state.majorInput,
+                    school: this.state.schoolInput,
+                    graduating: this.state.gradInput
+                  }).then((res) => {
+                    if(this.state.resumeUri){
+                      var fileData = new FormData();
+                      fileData.append('res', {
+                        uri: this.state.resumeUri,
+                        type: 'application/pdf',
+                        name: this.state.resumeName
+                      });
+                      axios.post(`http://${host}:3000/upload/`, fileData)
+                        .then(() => {
+                          this.switchMode();
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+      
+                    }else{
+                      this.switchMode();
+                      this.setState({
+                        resumeUri: null,
+                        resumeName: null
+                      })
+      
+                    }
                   });
+                } }>
+                <Text style = {styles.buttonText}>Save</Text>
+              </TouchableHighlight>
+            </View>
 
-              }else{
-                this.switchMode();
-                this.setState({
-                  resumeUri: null,
-                  resumeName: null
-                })
+            <View style={[styles.buttonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.button]}
+                onPress={ () => {
+                  DocumentPicker.show({
+                    filetype: [DocumentPickerUtil.pdf()],
+                  },(error, res) => {
+                    if (error) {
+                      console.log("ERROR", error);
+                    }
+                    if(res != null){
+                      this.setState({
+                        resumeName: res.fileName,
+                        resumeUri: res.uri
+                      })
+                    }
+                  });
+    
+                }
+    
+              }>
+                <Text style = {styles.buttonText}>Edit Resume</Text>
+              </TouchableHighlight>
+            </View>
+            
+            </View>
 
-              }
-            });
-          } }
-          title="Save"
-        />
       </View>
     )
   }
@@ -200,48 +230,63 @@ export default class JobSeekerHomeScreen extends Component {
             :
               <Text> Loading </Text>
           }
-          <Text>{this.state.resMessage}</Text>
-          <Button
-            style = {styles.removeBackground}
-            title="View Resume"
-            onPress={() => {
-              if(!this.state.userData.resume){
-                this.setState({resMessage: "Please upload your resume"});
-                return;
-              }
-              if(Platform.OS === 'ios'){
-                OpenFile.openDocBinaryinUrl([{
-                  url:`http://${host}:3000/upload/`,
-                  fileName:"resume",
-                  fileType:"pdf"
-                }], (error, url) => {
-                   if (error) {
-                     this.setState({resMessage: "Please upload your resume"})
-                   } else {
-                     this.setState({resMessage: ""})
-                   }
-                 })
-              }else{
-                OpenFile.openDoc([{
-                  url:`http://${host}:3000/upload/`,
-                  fileName:"resume",
-                  cache:false,
-                  fileType:"pdf"
-                }], (error, url) => {
-                   if (error) {
-                     this.setState({resMessage: "Please upload your resume"})
-                   } else {
-                     this.setState({resMessage: "Please upload your resume"})
-                   }
-                 })
-              }
-            }}
-          />
-        <Button 
-          style = {styles.removeBackground}
-          onPress={ () => {this.switchMode()} }
-          title="Edit"
-        />
+         
+        
+        <View style = {styles.buttonRow} >
+          <View style={[styles.buttonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.button]}
+                onPress={() => {
+                  if(!this.state.userData.resume){
+                    this.setState({resMessage: "Please upload your resume"});
+                    return;
+                  }
+                  if(Platform.OS === 'ios'){
+                    OpenFile.openDocBinaryinUrl([{
+                      url:`http://${host}:3000/upload/`,
+                      fileName:"resume",
+                      fileType:"pdf"
+                    }], (error, url) => {
+                      if (error) {
+                        this.setState({resMessage: "Please upload your resume"})
+                      } else {
+                        this.setState({resMessage: ""})
+                      }
+                    })
+                  }else{
+                    OpenFile.openDoc([{
+                      url:`http://${host}:3000/upload/`,
+                      fileName:"resume",
+                      cache:false,
+                      fileType:"pdf"
+                    }], (error, url) => {
+                      if (error) {
+                        this.setState({resMessage: "Please upload your resume"})
+                      } else {
+                        this.setState({resMessage: "Please upload your resume"})
+                      }
+                    })
+                  }
+                }}>
+                <Text style = {styles.buttonText}>View Resume</Text>
+              </TouchableHighlight>
+            </View>
+
+            <View style={[styles.buttonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.button]}
+                onPress={ () => {this.switchMode()} }>
+                <Text style = {styles.buttonText}>Edit</Text>
+              </TouchableHighlight>
+            </View>
+
+          </View>
+
+
+
+
       </View>
     )
   }
@@ -257,7 +302,7 @@ export default class JobSeekerHomeScreen extends Component {
 
     return (
       <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView overScrollMode="always" contentContainerStyle={[styles.container,styles.moreSpace]}>
         <Text style={[styles.removeBackground, styles.userName]}>
           {this.state.userData ? this.state.userData.name.toUpperCase() : ""}
         </Text>
@@ -267,7 +312,7 @@ export default class JobSeekerHomeScreen extends Component {
           <QRCode
             style = {styles.qrCode}
             value={this.state.userData._id}
-            size={150}
+            size={100}
             bgColor='black'
             fgColor='white'/>
             </View>
@@ -275,18 +320,23 @@ export default class JobSeekerHomeScreen extends Component {
         }
         { body }
 
-        <Button style = {styles.removeBackground}
-          onPress={ () => {
-            axios.get(`http://${host}:3000/logout/`, {})
-              .then((res) => {
-                this.props.navigation.goBack(null);
-              });
-          } }
-          title="Log out"
-        />
+       <View style = {[styles.buttonRow]} >
+          <View style={[styles.buttonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.button]}
+                onPress={ () => {
+                  axios.get(`http://${host}:3000/logout/`, {})
+                    .then((res) => {
+                      this.props.navigation.goBack(null);
+                    });
+                } }>
+                <Text style = {styles.buttonText}>LOGOUT</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
       </ScrollView>
       </ImageBackground>
-
     )
   }
 }
@@ -302,6 +352,7 @@ const styles = StyleSheet.create({
   qrCode : {
      
   },
+
 
   qrContainer : {
     padding : 15,
@@ -338,7 +389,7 @@ const styles = StyleSheet.create({
     width: null,
   },
   userName : {
-    fontFamily : "Raleway-Light",
+    fontFamily : "Raleway-Regular",
     color : "white",
     fontSize : 20,
     marginTop : 20,
@@ -350,5 +401,47 @@ const styles = StyleSheet.create({
   },
   removeBackground : {
     backgroundColor : "transparent"
+  },
+  buttonContainer : {
+    borderRadius: 50,
+    width: "45%",
+    backgroundColor: "#ccc",
+    marginTop: 2
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  button : {
+    borderRadius: 50,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#7178C4"
+  },
+  buttonText : {
+    fontSize: 18,
+    fontFamily : "Raleway-Light",
+    color : "white",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    borderRadius: 20,
+    marginTop : 3,
+    backgroundColor: 'rgba(76,76,76,.37)',
+  },
+  inputItem: {
+    margin: "auto",
+    borderColor: "transparent",
+    borderRadius: 50,
+    fontSize: 14,
+    paddingLeft: 10,
+    width: "70%",
+    color: "black",
+    height : 30
   }
+  
 });
