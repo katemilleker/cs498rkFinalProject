@@ -4,7 +4,6 @@ import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } f
 import { getSavedUsers, saveUser, getRecruiter, getUsersFullData, deleteUser } from "../../api/recruiter";
 
 
-
 export default class ApprovedApplicantsScreen extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +29,6 @@ export default class ApprovedApplicantsScreen extends Component {
     this.setState({ applicants });
     saveUser(user, "saved");
   };
-
   render() {
     let { currentApplicantIdx, applicants } = this.state;
 
@@ -102,22 +100,23 @@ export default class ApprovedApplicantsScreen extends Component {
                     <Text style={[styles.optionButtonText]}>Resume</Text>
                   </TouchableHighlight>
                 </View>
+
                 <View style={[styles.optionButtonContainer]}>
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                    onPress={() => this.approveJobSeeker(currentApplication, currentApplicantIdx)}>
+                    onPress={() => this.approveJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
-                    <Text style={[styles.optionButtonText]}></Text>
+                    <Text style={[styles.optionButtonText]}>Accept</Text>
                   </TouchableHighlight>
                 </View>
                 <View style={[styles.optionButtonContainer]}>
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                    onPress={() => this.rejectJobSeeker(currentApplication, currentApplicantIdx)}>
+                    onPress={() => this.rejectJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
-                    <Text style={[styles.optionButtonText]}>Un-save</Text>
+                    <Text style={[styles.optionButtonText]}>Reject</Text>
                   </TouchableHighlight>
                 </View>
               </View>
@@ -137,6 +136,9 @@ export default class ApprovedApplicantsScreen extends Component {
         </View>
       </ImageBackground>
     )
+  }
+
+
 }
 
 const styles = StyleSheet.create({
