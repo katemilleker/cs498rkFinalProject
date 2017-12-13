@@ -170,7 +170,7 @@ export default class RejectedApplicantsScreen extends Component {
                     style={[styles.optionButton]}
                     onPress={() => this.rejectJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
-                    <Text style={[styles.optionButtonText]}>Reject</Text>
+                    <Text style={[styles.optionButtonText]}>Delete</Text>
                   </TouchableHighlight>
                 </View>
               </View>

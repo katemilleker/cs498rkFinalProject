@@ -154,9 +154,8 @@ export default class ApprovedApplicantsScreen extends Component {
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                    onPress={() => this.approveJobSeeker(currentApplicant, currentApplicantIdx)}
                   >
-                    <Text style={[styles.optionButtonText]}>Accept</Text>
+                    <Text style={[styles.optionEmailText]}>{currentApplicant.email}</Text>
                   </TouchableHighlight>
                 </View>
                 <View style={[styles.optionButtonContainer]}>
@@ -378,6 +377,11 @@ const styles = StyleSheet.create({
   },
   optionButtonText: {
     fontSize: 24,
+    fontFamily: "Raleway-Light",
+    color: "white",
+  },
+  optionEmailText: {
+    fontSize: 15,
     fontFamily: "Raleway-Light",
     color: "white",
   },
