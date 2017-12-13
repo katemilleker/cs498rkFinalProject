@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 40,
-    fontFamily: "Raleway-Thin",
+    fontFamily: "Raleway-Regular",
     color: "white",
     backgroundColor: "transparent",
   },
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
   },
   itemIndicatorText: {
     fontSize: 30,
-    fontFamily: "Raleway-Thin",
+    fontFamily: "Raleway-Regular",
     color: "white",
     backgroundColor: "transparent",
   },
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
   optionButton: {
     borderRadius: 50,
     height: 60,
-    borderWidth: 10,
+    /*borderWidth: 10,*/
     borderColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
