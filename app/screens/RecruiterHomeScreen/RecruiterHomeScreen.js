@@ -122,6 +122,22 @@ export default class RecruiterHomeScreen extends Component {
             </View>
           </View>
 
+          <View style={[styles.buttonRow]}>
+            <View style={[styles.ButtonContainer]}>
+              <TouchableHighlight
+                underlayColor="#ddd"
+                style={[styles.Button]}
+                onPress={() => {
+                  axios.get(`http://${host}:3000/logout/`, {})
+                    .then((res) => {
+                      this.props.navigation.goBack(null);
+                    });
+                }}>
+                <Text style={[styles.ButtonText]}>Logout</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+
         </View>
       </ImageBackground>
     );
