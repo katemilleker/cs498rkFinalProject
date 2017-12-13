@@ -58,6 +58,51 @@ module.exports = (router, isLoggedIn, getType) => {
           });
         });
 
+    router.get('/user/:id',
+        isLoggedIn,
+        function(req, res) {
+            User.findOne({"_id": req.params.id}, (err, doc) => {
+                doc.password = undefined;
+                res.status(200).json({
+                    user: doc
+                })
+            })
+
+        });
+
+    router.delete('/user/:id',
+        isLoggedIn,
+        function(req, res) {
+            Recruiter.findOne({"_id":req.user["_id"]}, (err, doc) => {
+              var resumes = doc.savedUsers;
+              var data = []
+              for (var i = 0; i < doc.savedUsers.length; i++){
+                  if(doc.savedUsers[i].user_id != req.params.id){
+                      data.push({
+                          user_id: doc.savedUsers[i].user_id,
+                          status: doc.savedUsers[i].status
+                      });
+                  }
+              }
+              doc.savedUsers = data;
+              doc.save((err, doc) => {
+                   if(err){
+                       console.log(err);
+                       res.status(500).json({
+                           message: "failure"
+                       });
+                   }else{
+                       filterUser(doc);
+                       res.status(201).json({
+                           message: "User removed from list"
+                       });
+                   }
+               })
+
+            })
+
+        });
+
     router.get('/savedResumes',
         isLoggedIn,
         function(req, res) {

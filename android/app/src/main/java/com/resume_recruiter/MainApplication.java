@@ -3,6 +3,7 @@ package com.resume_recruiter;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.rnfs.RNFSPackage;
 import com.reactlibrary.RNReactNativeDocViewerPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RCTCameraPackage(),
             new RNFSPackage(),
             new RNReactNativeDocViewerPackage(),
             new ImagePickerPackage(),
