@@ -15,6 +15,10 @@ export default class RecruiterHomeScreen extends Component {
     this.props.navigation.navigate("ResumeScreen", this.state);
   };
 
+  goToProcessApplicantsScreen = () => {
+    this.props.navigation.navigate("ProcessApplicantsScreen", this.state);
+  };
+
   render() {
     return (
       <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
@@ -42,7 +46,7 @@ export default class RecruiterHomeScreen extends Component {
               <TouchableHighlight
                 underlayColor="#ddd"
                 style={[styles.Button]}
-                onPress={() => this.goToResumeScreen()}>
+                onPress={() => this.goToProcessApplicantsScreen()}>
                 <Text style={[styles.ButtonText]}>Review Applicants</Text>
               </TouchableHighlight>
             </View>
