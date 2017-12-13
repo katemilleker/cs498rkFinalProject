@@ -55,3 +55,14 @@ module.exports.getUsersFullData = (status, callback) => {
     console.log("There was an issue getting the saved users", error);
   });
 };
+
+module.exports.deleteUser = (id, callback) => {
+  let url = `http://${host}:3000/user/`+id;
+  axios.delete(url).then(response => {
+    if (callback) {
+      callback(response.data);
+    }
+  }).catch(error => {
+    console.log("There was an issue deleting users", error);
+  });
+}

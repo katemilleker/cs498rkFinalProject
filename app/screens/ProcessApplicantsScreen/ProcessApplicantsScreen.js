@@ -131,17 +131,16 @@ export default class ProcessApplicantsScreen extends Component {
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
+                    onPress={() => this.approveJobSeeker(currentApplication, currentApplicantIdx)}
                   >
                     <Text style={[styles.optionButtonText]}>Accept</Text>
                   </TouchableHighlight>
                 </View>
-
                 <View style={[styles.optionButtonContainer]}>
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
+                    onPress={() => this.rejectJobSeeker(currentApplication, currentApplicantIdx)}
                   >
                     <Text style={[styles.optionButtonText]}>Reject</Text>
                   </TouchableHighlight>
@@ -433,4 +432,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-

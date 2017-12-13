@@ -1,60 +1,59 @@
 
 import React, { Component } from "react";
 import { StyleSheet, TouchableHighlight, Text, View, ImageBackground, Button } from "react-native";
+import { getSavedUsers, saveUser, getRecruiter, getUsersFullData, deleteUser } from "../../api/recruiter";
+
+
 
 export default class ApprovedApplicantsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentApplicantIdx: 0, 
-      approvedApplicants: [
-        {
-          name: "Dohn Joe",
-          email: "dohnjoe@illinois.edu",
-          major: "Computer Science",
-          school: "University of Illinois",
-          details: "CEO of both Google and Starbucks. In my free time I like to set subway maps on fire and complain about tax payer waste. Hobbies include: La Croix",
-          graduating: "Spring 2020"
-        },
-        {
-          name: "Foo Bar",
-          email: "foobar@alaska.edu",
-          major: "Computer Engineering",
-          school: "University of Alaska",
-          details: "Direct descendant of Napolean. Expatriated after his death, and moved to Alaska. My goal is to study computer engineering and build an army of robots.",
-          graduating: "December 2022"
-        },
-        {
-          name: "Car Mex",
-          email: "carmex@gmail.edu",
-          major: "Statistics",
-          school: "University of Chicago",
-          details: "CEO of both La Croix and La Croix. Born with a PhD in Economics, studying statistics because it's pretty neat.",
-          graduating: "Spring 2018"
-        }
-      ]
+      currentApplicantIdx: 0
     };
   }
 
+  componentWillMount() {
+    getUsersFullData("saved", savedUsers => {
+      this.setState({ applicants: savedUsers });
+    });
+  }
+
+
   changeCurrentApplicant(newIdx) {
     this.setState({ currentApplicantIdx: newIdx });
-  }
+  };
 
-  componentDidMount() {
-
-  }
+  rejectJobSeeker(user, i) {
+    let { applicants } = this.state;
+    applicants.splice(i, 1);
+    this.setState({ applicants });
+    saveUser(user, "saved");
+  };
 
   render() {
-    let { currentApplicantIdx, approvedApplicants } = this.state;
-    let currentApplicant = approvedApplicants[currentApplicantIdx];
+    let { currentApplicantIdx, applicants } = this.state;
+
+    // state when there are no applicants to process
+    if (!applicants || applicants.length === 0) {
+      return (
+        <View style={[styles.container]}>
+          <Text>
+            There are no more applicants to process
+          </Text>
+        </View>
+      )
+    }
+
+    let currentApplicant = applicants[currentApplicantIdx];
 
     return (
       <ImageBackground source={require('../../assets/images/Background.png')} style={styles.backgroundImage}>
-        <View style={styles.container}>
+        <View>
           {
-            (approvedApplicants && approvedApplicants.length > 0) &&
+            (applicants && applicants.length > 0) &&
             <Text style={[styles.itemIndicator, styles.itemIndicatorText]}>
-              Applicant {currentApplicantIdx + 1} out of {approvedApplicants.length}
+              Applicant {currentApplicantIdx + 1} out of {applicants.length}
             </Text>
           }
 
@@ -69,6 +68,7 @@ export default class ApprovedApplicantsScreen extends Component {
               </Text>
               }
             </View>
+
             <View style={[styles.detailBox]}>
               <Text style={[styles.detailName]}>
                 {currentApplicant.name}
@@ -107,27 +107,17 @@ export default class ApprovedApplicantsScreen extends Component {
                   <TouchableHighlight
                     underlayColor="#ddd"
                     style={[styles.optionButton]}
-                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
+                    onPress={() => this.rejectJobSeeker(currentApplication, currentApplicantIdx)}>
                   >
-                    <Text style={[styles.optionButtonText]}>Message</Text>
-                  </TouchableHighlight>
-                </View>
-
-                <View style={[styles.optionButtonContainer]}>
-                  <TouchableHighlight
-                    underlayColor="#ddd"
-                    style={[styles.optionButton]}
-                  /*onPress={() => this.goToApprovedApplicantsScreen()}>*/
-                  >
-                    <Text style={[styles.optionButtonText]}>Reject</Text>
+                    <Text style={[styles.optionButtonText]}>Un-accept</Text>
                   </TouchableHighlight>
                 </View>
               </View>
-
             </View>
+
             <View style={[styles.arrowSideBox]}>
               {
-                (currentApplicantIdx < (approvedApplicants.length - 1)) &&
+                (currentApplicantIdx < (applicants.length - 1)) &&
                 <Text
                   style={[styles.arrowItem]}
                   onPress={() => this.changeCurrentApplicant(currentApplicantIdx + 1)}>
@@ -138,7 +128,7 @@ export default class ApprovedApplicantsScreen extends Component {
           </View>
         </View>
       </ImageBackground>
-    );
+    )
   }
 }
 
@@ -161,10 +151,10 @@ const styles = StyleSheet.create({
   buttonColumn: {
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",    
+    alignItems: "center",
     paddingTop: 25,
     paddingBottom: 15,
-    justifyContent: "flex-end"    
+    justifyContent: "flex-end"
   },
   buttonToggleItem: {
     paddingLeft: 4,
