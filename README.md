@@ -12,7 +12,7 @@ Candidates that were approved get pushed into a separate database where recruite
 
 ### Code Overview
 
-The code for HypeRecruiter has initially been created with the react-native cli and from there follows certain standards. 
+The code for HypeRecruiter has initially been created with the REACT-Native CLI and from there follows certain standards. 
 These standards could change and are more a suggestion than anything, but this is an overview:
 - Any back-end code is contained within the server/ folder. This code is run from node.js and uses MongoDB as a database.
 - Any front-end code is contained within the app/ folder. This is all react-native code.
@@ -21,18 +21,12 @@ These standards could change and are more a suggestion than anything, but this i
 - All test cases should be in __tests\__/
 
 ### Running the Server
-1. run `npm install` (if not done already)
-2. run `npm run server` 
-3. test that the server is running by sending a GET request to `localhost:3000/test`
+1. Run `npm install` (if not done already)
+2. Run `npm run server` 
+3. Test that the server is running by sending a GET request to `localhost:3000/test`
 
 Some notes:
 - The root file for the server is `server/index.js`. This is the file that node runs when calling npm run server.
-
-### Running the iOS app
-1. TODO
-
-### Running the Android app
-1. TODO
 
 ### Team
 - Kate Milleker
